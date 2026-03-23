@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Kabini AgroGlobal | Global Agriculture Marketplace</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= ROOT ================= */
+
+:root{
+
+--green:#1F7A3A;
+--dark-green:#145A2A;
+--brown:#6B4F2A;
+--gold:#E8A317;
+--bg:#F5F7F2;
+
+--glass:rgba(255,255,255,.18);
+--glass-border:rgba(255,255,255,.3);
+
+--radius:22px;
+
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:var(--bg);
+overflow-x:hidden;
+color:#333;
+}
+
+/* ================= PARTICLES ================= */
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
+opacity:.25;
+}
+
+/* ================= NAVBAR ================= */
+
+nav{
+
+position:fixed;
+top:0;
+width:100%;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+padding:20px 60px;
+
+background:rgba(255,255,255,.65);
+backdrop-filter:blur(18px);
+
+border-bottom:1px solid rgba(0,0,0,.05);
+
+z-index:100;
+
+}
+
+.logo{
+
+font-size:24px;
+font-weight:700;
+color:var(--green);
+
+}
+
+nav ul{
+
+display:flex;
+gap:30px;
+list-style:none;
+
+}
+
+nav a{
+
+text-decoration:none;
+color:#333;
+font-weight:500;
+
+transition:.3s;
+
+}
+
+nav a:hover{
+color:var(--green);
+}
+
+/* ================= HERO ================= */
+
+.hero{
+
+min-height:100vh;
+
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+
+text-align:center;
+
+padding:120px 20px;
+
+background:
+
+linear-gradient(
+rgba(31,122,58,.75),
+rgba(20,90,42,.75)
+),
+
+url("https://images.unsplash.com/photo-1500937386664-56d1dfef3854");
+
+background-size:cover;
+
+color:white;
+
+}
+
+.hero h1{
+
+font-size:4rem;
+
+background:linear-gradient(90deg,#fff,#E8A317);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
+animation:floatText 6s ease-in-out infinite;
+
+}
+
+@keyframes floatText{
+
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-12px)}
+
+}
+
+.hero p{
+max-width:650px;
+margin-top:20px;
+}
+
+.btn{
+
+margin-top:30px;
+
+padding:14px 40px;
+
+border:none;
+
+border-radius:50px;
+
+background:var(--gold);
+
+font-weight:600;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.btn:hover{
+
+transform:translateY(-3px);
+
+}
+
+/* ================= TRUST BADGES ================= */
+
+.badges{
+
+display:flex;
+justify-content:center;
+gap:40px;
+
+padding:50px;
+
+flex-wrap:wrap;
+
+background:white;
+
+}
+
+.badge{
+
+padding:10px 20px;
+
+background:var(--bg);
+
+border-radius:30px;
+
+font-weight:500;
+
+}
+
+/* ================= LIVE METRICS ================= */
+
+.metrics{
+
+max-width:1200px;
+margin:80px auto;
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+
+gap:30px;
+
+padding:0 20px;
+
+}
+
+.metric{
+
+background:var(--glass);
+border:1px solid var(--glass-border);
+
+backdrop-filter:blur(18px);
+
+padding:30px;
+
+border-radius:var(--radius);
+
+text-align:center;
+
+}
+
+.metric h2{
+color:var(--green);
+}
+
+/* ================= CATEGORIES ================= */
+
+.categories{
+
+max-width:1200px;
+margin:100px auto;
+
+padding:0 20px;
+
+}
+
+.categories h2{
+text-align:center;
+margin-bottom:40px;
+}
+
+.category-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+
+gap:30px;
+
+}
+
+.category{
+
+background:white;
+
+padding:30px;
+
+border-radius:var(--radius);
+
+text-align:center;
+
+box-shadow:0 15px 40px rgba(0,0,0,.08);
+
+transition:.3s;
+
+}
+
+.category:hover{
+transform:translateY(-8px);
+}
+
+/* ================= PRODUCTS ================= */
+
+.products{
+
+max-width:1200px;
+margin:100px auto;
+padding:0 20px;
+
+}
+
+.products h2{
+text-align:center;
+margin-bottom:40px;
+}
+
+.product-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+
+gap:30px;
+
+}
+
+.card{
+
+background:white;
+
+border-radius:var(--radius);
+
+padding:20px;
+
+box-shadow:0 15px 40px rgba(0,0,0,.08);
+
+transition:.3s;
+
+}
+
+.card img{
+width:100%;
+border-radius:12px;
+}
+
+.card:hover{
+transform:translateY(-8px);
+}
+
+.price{
+color:var(--green);
+margin:10px 0;
+}
+
+/* ================= FLASH SALE ================= */
+
+.flash{
+
+background:linear-gradient(135deg,var(--gold),#ffd95b);
+
+padding:60px;
+
+text-align:center;
+
+margin-top:80px;
+
+}
+
+.timer{
+font-size:28px;
+margin-top:10px;
+}
+
+/* ================= FARMER MARKETPLACE ================= */
+
+.farmers{
+
+padding:120px 20px;
+
+text-align:center;
+
+background:linear-gradient(135deg,var(--green),var(--dark-green));
+
+color:white;
+
+}
+
+.farmers h2{
+font-size:2.4rem;
+}
+
+/* ================= NEWSLETTER ================= */
+
+.newsletter{
+
+padding:80px 20px;
+text-align:center;
+
+}
+
+.newsletter input{
+
+padding:14px;
+width:260px;
+
+border-radius:6px;
+border:1px solid #ccc;
+
+margin-right:10px;
+
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+
+background:#111;
+
+color:white;
+
+padding:60px 40px;
+
+}
+
+.footer-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+
+gap:40px;
+
+}
+
+footer p{
+opacity:.7;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:900px){
+
+.hero h1{
+font-size:2.5rem;
+}
+
+nav{
+padding:20px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="particles"></canvas>
+
+<nav>
+
+<div class="logo">Kabini AgroGlobal</div>
+
+<ul>
+
+<li><a href="index.html">Home</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="admin-dashboard.html">Admin</a></li>
+    <li><a href="cart.html">cart</a></li>
+    <li><a href="checkout.html">checkout</a></li>
+    <li><a href="flashsales.html">flashsales</a></li>
+    <li><a href="invoice.html">invoice</a></li>
+    <li><a href="receipt.html">receipt</a></li>
+
+</ul>
+
+</nav>
+
+<section class="hero">
+
+<h1>The Global Agriculture Marketplace</h1>
+
+<p>Connecting farmers and buyers worldwide.</p>
+
+<button class="btn">Explore Marketplace</button>
+
+</section>
+
+<div class="badges">
+
+<div class="badge">🌾 Direct From Farmers</div>
+<div class="badge">🚚 Global Delivery</div>
+<div class="badge">🌱 Organic Produce</div>
+<div class="badge">🔒 Secure Payments</div>
+
+</div>
+
+<section class="metrics">
+
+<div class="metric">
+<h2 id="farmers">0</h2>
+<p>Farmers</p>
+</div>
+
+<div class="metric">
+<h2 id="productsCount">0</h2>
+<p>Products</p>
+</div>
+
+<div class="metric">
+<h2 id="orders">0</h2>
+<p>Orders</p>
+</div>
+
+<div class="metric">
+<h2 id="sales">0</h2>
+<p>Live Sales</p>
+</div>
+
+</section>
+
+<section class="categories">
+
+<h2>Marketplace Categories</h2>
+
+<div class="category-grid">
+
+<div class="category">🌾 Grains</div>
+<div class="category">🥕 Vegetables</div>
+<div class="category">🍎 Fruits</div>
+<div class="category">🐄 Livestock</div>
+<div class="category">🌱 Seeds</div>
+<div class="category">🚜 Equipment</div>
+
+</div>
+
+</section>
+
+<section class="products">
+
+<h2>Featured Products</h2>
+
+<div class="product-grid" id="productsGrid"></div>
+
+</section>
+
+<section class="flash">
+
+<h2>Flash Sale</h2>
+
+<div class="timer" id="timer">24:00:00</div>
+
+</section>
+
+<section class="farmers">
+
+<h2>Sell Your Farm Products Globally</h2>
+
+<button class="btn">Become a Farmer Partner</button>
+
+</section>
+
+<section class="newsletter">
+
+<h2>Subscribe for Market Updates</h2>
+
+<input type="email" placeholder="Enter your email">
+
+<button class="btn">Subscribe</button>
+
+</section>
+
+<footer>
+
+<div class="footer-grid">
+
+<div>
+<h3>Kabini AgroGlobal</h3>
+<p>Global agriculture marketplace.</p>
+</div>
+
+<div>
+<h4>Marketplace</h4>
+<p>Products</p>
+<p>Farmers</p>
+<p>Flash Sales</p>
+</div>
+
+<div>
+<h4>Company</h4>
+<p>About</p>
+<p>Careers</p>
+</div>
+
+<div>
+<h4>Support</h4>
+<p>Help Center</p>
+<p>Shipping</p>
+</div>
+
+</div>
+
+</footer>
+
+<script>
+
+/* ================= PRODUCTS ================= */
+
+const products=[
+
+{id:1,name:"Organic Rice",price:15000,img:"https://images.unsplash.com/photo-1586201375761-83865001e31c"},
+{id:2,name:"organic apples",price:4000,img:"https://images.unsplash.com/photo-1567306226416-28f0efdc88ce"},
+{id:3,name:"cows",price:8000,img:"NEXACORE CANVAS/tmp-1589792989118857216-6E9BT6.jpg"},
+{id:4,name:"brevages",price:5000,img:"https://images.unsplash.com/photo-1517959105821-eaf2591984ca"},
+{id:5,name:"Broilers",price:4000,img:"NEXACORE CANVAS/0072da0230f880e7683470593197a718.jpg"},
+{id:6,name:"Fresh Tomatoes",price:4000,img:"NEXACORE CANVAS/285d7a8f99671955dc581f66d5894490.jpg"},
+{id:7,name:"Goats",price:4000,img:"NEXACORE CANVAS/tmp-1589792989118857216-JF1KY8.jpg"},
+{id:8,name:"Eggs",price:4000,img:"NEXACORE CANVAS/tmp-1589792989118857216-DFWW4g.jpg"},
+]
+
+document.getElementById("productsCount").innerText=products.length
+
+function renderProducts(){
+
+const grid=document.getElementById("productsGrid")
+
+products.forEach(p=>{
+
+grid.innerHTML+=`
+
+<div class="card">
+
+<img src="${p.img}">
+
+<h4>${p.name}</h4>
+
+<p class="price">₦${p.price}</p>
+
+<button class="btn" onclick="addToCart(${p.id})">Add To Cart</button>
+
+</div>
+
+`
+
+})
+
+}
+
+renderProducts()
+
+function addToCart(id){
+
+let cart=JSON.parse(localStorage.getItem("cart"))||[]
+
+const product=products.find(p=>p.id===id)
+
+const item=cart.find(p=>p.id===id)
+
+if(item) item.qty++
+else cart.push({...product,qty:1})
+
+localStorage.setItem("cart",JSON.stringify(cart))
+
+alert(product.name+" added to cart")
+
+}
+
+/* ================= FLASH SALE TIMER ================= */
+
+let end=new Date().getTime()+86400000
+
+setInterval(()=>{
+
+let now=new Date().getTime()
+
+let distance=end-now
+
+let h=Math.floor(distance/(1000*60*60))
+let m=Math.floor((distance%(1000*60*60))/(1000*60))
+let s=Math.floor((distance%(1000*60))/1000)
+
+document.getElementById("timer").innerText=`${h}:${m}:${s}`
+
+},1000)
+
+/* ================= LIVE STATS ================= */
+
+let sales=200
+
+setInterval(()=>{
+
+sales+=Math.floor(Math.random()*3)
+
+document.getElementById("sales").innerText=sales
+
+},2000)
+
+document.getElementById("farmers").innerText=540
+document.getElementById("orders").innerText=2800
+
+/* ================= PARTICLES ================= */
+
+const canvas=document.getElementById("particles")
+const ctx=canvas.getContext("2d")
+
+canvas.width=innerWidth
+canvas.height=innerHeight
+
+let particles=[]
+
+for(let i=0;i<80;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2,
+vx:Math.random()-.5,
+vy:Math.random()-.5
+})
+}
+
+function animate(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height)
+
+particles.forEach(p=>{
+p.x+=p.vx
+p.y+=p.vy
+
+ctx.beginPath()
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2)
+ctx.fillStyle="rgba(31,122,58,.5)"
+ctx.fill()
+})
+
+requestAnimationFrame(animate)
+
+}
+
+animate()
+
+</script>
+
+</body>
+</html>
