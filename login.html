@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kabini AgroGlobal | Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ================= ROOT ================= */
+:root{
+--green:#1F7A3A;
+--dark-green:#145A2A;
+--gold:#E8A317;
+--bg:#F5F7F2;
+--glass:rgba(255,255,255,.18);
+--glass-border:rgba(255,255,255,.3);
+--radius:22px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:var(--bg);overflow-x:hidden;color:#333;}
+
+/* ================= PARTICLES ================= */
+canvas{position:fixed;top:0;left:0;z-index:-1;opacity:.25;}
+
+/* ================= NAVBAR ================= */
+nav{
+position:fixed;top:0;width:100%;display:flex;justify-content:space-between;align-items:center;
+padding:20px 60px;background:rgba(255,255,255,.65);backdrop-filter:blur(18px);
+border-bottom:1px solid rgba(0,0,0,.05);z-index:100;
+}
+.logo{font-size:24px;font-weight:700;color:var(--green);}
+nav ul{display:flex;gap:30px;list-style:none;}
+nav a{text-decoration:none;color:#333;font-weight:500;transition:.3s;}
+nav a:hover{color:var(--green);}
+
+/* ================= HERO ================= */
+.hero{
+min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+padding:120px 20px;background:linear-gradient(rgba(31,122,58,.75),rgba(20,90,42,.75)),url("https://images.unsplash.com/photo-1500937386664-56d1dfef3854");
+background-size:cover;color:white;
+}
+.hero h1{font-size:4rem;background:linear-gradient(90deg,#fff,#E8A317);
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:floatText 6s ease-in-out infinite;}
+@keyframes floatText{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.hero p{max-width:650px;margin-top:20px;}
+
+/* ================= LOGIN FORM ================= */
+.login-container{
+max-width:450px;margin:80px auto 120px auto;padding:40px;background:var(--glass);
+backdrop-filter:blur(18px);border-radius:var(--radius);box-shadow:0 20px 60px rgba(0,0,0,.1);
+border:1px solid var(--glass-border);
+}
+.login-container h2{text-align:center;color:var(--green);margin-bottom:20px;font-size:2rem;}
+.login-container p{text-align:center;color:#555;margin-bottom:30px;font-weight:500;}
+.login-container input{
+width:100%;padding:14px;margin:10px 0;border-radius:8px;border:1px solid #ccc;
+transition:.3s;font-size:1rem;
+}
+.login-container input:focus{border-color:var(--green);outline:none;box-shadow:0 0 10px rgba(31,122,58,.3);}
+.login-container button{
+width:100%;padding:14px;border:none;border-radius:50px;background:var(--green);color:white;font-weight:600;cursor:pointer;transition:.3s;margin-top:10px;
+}
+.login-container button:hover{transform:translateY(-3px);}
+.login-container .extra-links{text-align:center;margin-top:20px;}
+.login-container .extra-links a{color:var(--green);text-decoration:none;margin:0 10px;font-weight:500;transition:.3s;}
+.login-container .extra-links a:hover{text-decoration:underline;}
+
+/* ================= FOOTER ================= */
+footer{background:#111;color:white;padding:60px 40px;}
+.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;}
+footer p{opacity:.7;}
+
+/* ================= MOBILE ================= */
+@media(max-width:900px){
+.hero h1{font-size:2.5rem;}
+nav{padding:20px;}
+.login-container{margin:60px 20px 80px 20px;}
+}
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<nav>
+<div class="logo">Kabini AgroGlobal</div>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="products.html">Products</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="admin.html">Admin</a></li>
+<li><a href="cart.html">Cart</a></li>
+<li><a href="checkout.html">Checkout</a></li>
+<li><a href="flashsales.html">Flash Sales</a></li>
+<li><a href="invoice.html">Invoice</a></li>
+<li><a href="receipt.html">Receipt</a></li>
+</ul>
+</nav>
+
+<section class="hero">
+<h1>Login to Your Account</h1>
+<p>Access your dashboard, orders, and manage your farm products.</p>
+</section>
+
+<div class="login-container">
+<h2>Welcome Back</h2>
+<p>Enter your credentials to continue</p>
+<form id="loginForm">
+<input type="email" id="email" placeholder="Email Address" required>
+<input type="password" id="password" placeholder="Password" required>
+<button type="submit">Login</button>
+</form>
+<div class="extra-links">
+<a href="signup.html">Sign Up</a> | <a href="forgot.html">Forgot Password?</a>
+</div>
+</div>
+
+<footer>
+<div class="footer-grid">
+<div>
+<h3>Kabini AgroGlobal</h3>
+<p>Global agriculture marketplace.</p>
+</div>
+<div>
+<h4>Marketplace</h4>
+<p>Products</p>
+<p>Farmers</p>
+<p>Flash Sales</p>
+</div>
+<div>
+<h4>Company</h4>
+<p>About</p>
+<p>Careers</p>
+</div>
+<div>
+<h4>Support</h4>
+<p>Help Center</p>
+<p>Shipping</p>
+</div>
+</div>
+</footer>
+
+<script>
+/* ================= PARTICLES ================= */
+const canvas=document.getElementById("particles")
+const ctx=canvas.getContext("2d")
+canvas.width=innerWidth
+canvas.height=innerHeight
+let particles=[]
+for(let i=0;i<80;i++){
+particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2,vx:Math.random()-.5,vy:Math.random()-.5})
+}
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height)
+particles.forEach(p=>{
+p.x+=p.vx
+p.y+=p.vy
+ctx.beginPath()
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2)
+ctx.fillStyle="rgba(31,122,58,.5)"
+ctx.fill()
+})
+requestAnimationFrame(animate)
+}
+animate()
+
+/* ================= LOGIN FUNCTION ================= */
+document.getElementById("loginForm").addEventListener("submit", function(e){
+e.preventDefault();
+const email=document.getElementById("email").value;
+const password=document.getElementById("password").value;
+
+// Simple login check simulation
+if(email && password){
+alert("Login successful! Redirecting to dashboard...");
+window.location.href="index.html"; // redirect to homepage or dashboard
+}else{
+alert("Please enter valid credentials");
+}
+});
+</script>
+
+</body>
+</html>

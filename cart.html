@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Kabini Cart</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= ROOT ================= */
+
+:root{
+--green:#1F7A3A;
+--dark-green:#145A2A;
+--gold:#E8A317;
+--bg:#F5F7F2;
+--glass:rgba(255,255,255,.2);
+--radius:20px;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:var(--bg);
+}
+
+/* ================= NAV ================= */
+
+nav{
+position:fixed;
+top:0;
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 60px;
+background:rgba(255,255,255,.7);
+backdrop-filter:blur(12px);
+z-index:100;
+}
+
+.logo{
+font-weight:700;
+color:var(--green);
+font-size:22px;
+}
+
+nav ul{
+display:flex;
+gap:25px;
+list-style:none;
+}
+
+nav a{
+text-decoration:none;
+color:#333;
+}
+
+/* ================= MAIN ================= */
+
+.container{
+max-width:1200px;
+margin:120px auto;
+padding:20px;
+}
+
+/* ================= CART GRID ================= */
+
+.cart-grid{
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:30px;
+}
+
+@media(max-width:900px){
+.cart-grid{
+grid-template-columns:1fr;
+}
+}
+
+/* ================= ITEMS ================= */
+
+.cart-items{
+background:white;
+padding:20px;
+border-radius:var(--radius);
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.item{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:20px;
+border-bottom:1px solid #eee;
+padding-bottom:15px;
+}
+
+.item img{
+width:80px;
+border-radius:10px;
+}
+
+.item-info{
+flex:1;
+margin-left:15px;
+}
+
+.qty{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.qty button{
+padding:5px 10px;
+border:none;
+background:var(--green);
+color:white;
+cursor:pointer;
+}
+
+/* ================= SUMMARY ================= */
+
+.summary{
+background:var(--glass);
+backdrop-filter:blur(15px);
+padding:20px;
+border-radius:var(--radius);
+border:1px solid rgba(255,255,255,.3);
+}
+
+.summary h3{
+margin-bottom:20px;
+}
+
+.summary p{
+margin:10px 0;
+display:flex;
+justify-content:space-between;
+}
+
+.btn{
+width:100%;
+padding:14px;
+margin-top:20px;
+border:none;
+border-radius:50px;
+background:var(--gold);
+cursor:pointer;
+font-weight:600;
+}
+
+/* EMPTY */
+
+.empty{
+text-align:center;
+padding:50px;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+<div class="logo">Kabini AgroGlobal</div>
+
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="products.html">Products</a></li>
+<li><a href="cart.html">Cart</a></li>
+<li><a href="checkout.html">Checkout</a></li>
+</ul>
+</nav>
+
+<div class="container">
+
+<h1>Your Cart</h1>
+
+<div class="cart-grid">
+
+<!-- ITEMS -->
+<div class="cart-items" id="cartItems"></div>
+
+<!-- SUMMARY -->
+<div class="summary">
+
+<h3>Order Summary</h3>
+
+<p>Subtotal <span id="subtotal">₦0</span></p>
+<p>Shipping <span>₦2000</span></p>
+<p><strong>Total <span id="total">₦0</span></strong></p>
+
+<button class="btn" onclick="checkout()">Proceed to Checkout</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* ================= LOAD CART ================= */
+
+let cart = JSON.parse(localStorage.getItem("cart")) || []
+
+const container = document.getElementById("cartItems")
+
+function renderCart(){
+
+container.innerHTML=""
+
+if(cart.length === 0){
+container.innerHTML = `<div class="empty">🛒 Your cart is empty</div>`
+updateTotals()
+return
+}
+
+cart.forEach(item => {
+
+container.innerHTML += `
+
+<div class="item">
+
+<img src="${item.img}">
+
+<div class="item-info">
+<h4>${item.name}</h4>
+<p>₦${item.price}</p>
+</div>
+
+<div class="qty">
+
+<button onclick="decrease(${item.id})">-</button>
+<span>${item.qty}</span>
+<button onclick="increase(${item.id})">+</button>
+
+</div>
+
+<button onclick="removeItem(${item.id})">❌</button>
+
+</div>
+
+`
+
+})
+
+updateTotals()
+
+}
+
+/* ================= QUANTITY ================= */
+
+function increase(id){
+cart = cart.map(item => item.id === id ? {...item, qty:item.qty+1} : item)
+save()
+}
+
+function decrease(id){
+cart = cart.map(item => item.id === id ? {...item, qty: Math.max(1,item.qty-1)} : item)
+save()
+}
+
+function removeItem(id){
+cart = cart.filter(item => item.id !== id)
+save()
+}
+
+function save(){
+localStorage.setItem("cart", JSON.stringify(cart))
+renderCart()
+}
+
+/* ================= TOTAL ================= */
+
+function updateTotals(){
+
+let subtotal = cart.reduce((acc,item)=> acc + item.price * item.qty,0)
+
+document.getElementById("subtotal").innerText = "₦" + subtotal
+document.getElementById("total").innerText = "₦" + (subtotal + 2000)
+
+}
+
+/* ================= CHECKOUT ================= */
+
+function checkout(){
+
+if(cart.length === 0){
+alert("Cart is empty")
+return
+}
+
+localStorage.setItem("order", JSON.stringify(cart))
+
+window.location.href = "checkout.html"
+
+}
+
+renderCart()
+
+</script>
+<script src="shippingCalculator.js"></script>
+</body>
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Kabini AgroGlobal | About Us</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= ROOT ================= */
+
+:root{
+--green:#1F7A3A;
+--dark-green:#145A2A;
+--gold:#E8A317;
+--bg:#F5F7F2;
+--glass:rgba(255,255,255,.18);
+--glass-border:rgba(255,255,255,.3);
+--radius:22px;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:var(--bg);
+color:#333;
+overflow-x:hidden;
+}
+
+/* ================= NAV ================= */
+
+nav{
+position:fixed;
+top:0;
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 60px;
+background:rgba(255,255,255,.65);
+backdrop-filter:blur(18px);
+z-index:100;
+}
+
+.logo{
+font-weight:700;
+font-size:24px;
+color:var(--green);
+}
+
+nav ul{
+display:flex;
+gap:25px;
+list-style:none;
+}
+
+nav a{
+text-decoration:none;
+color:#333;
+transition:.3s;
+}
+
+nav a:hover{
+color:var(--green);
+}
+
+/* ================= HERO ================= */
+
+.hero{
+min-height:80vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding-top:120px;
+
+background:
+linear-gradient(rgba(31,122,58,.8),rgba(20,90,42,.8)),
+url("https://images.unsplash.com/photo-1464226184884-fa280b87c399");
+
+background-size:cover;
+color:white;
+}
+
+.hero h1{
+font-size:3.5rem;
+background:linear-gradient(90deg,#fff,#E8A317);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.hero p{
+max-width:600px;
+margin-top:20px;
+}
+
+/* ================= SECTIONS ================= */
+
+.section{
+max-width:1200px;
+margin:100px auto;
+padding:0 20px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:40px;
+}
+
+/* ================= CARD ================= */
+
+.card{
+background:white;
+padding:30px;
+border-radius:var(--radius);
+box-shadow:0 15px 40px rgba(0,0,0,.08);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-8px);
+}
+
+/* ================= TEAM ================= */
+
+.team img{
+width:100%;
+border-radius:12px;
+height:220px;
+object-fit:cover;
+}
+
+/* ================= STATS ================= */
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:30px;
+text-align:center;
+}
+
+.stat{
+background:var(--glass);
+backdrop-filter:blur(20px);
+padding:30px;
+border-radius:var(--radius);
+border:1px solid var(--glass-border);
+}
+
+.stat h2{
+color:var(--green);
+}
+
+/* ================= CTA ================= */
+
+.cta{
+background:linear-gradient(135deg,var(--green),var(--dark-green));
+color:white;
+padding:80px 20px;
+text-align:center;
+}
+
+.btn{
+margin-top:20px;
+padding:14px 40px;
+border:none;
+border-radius:40px;
+background:var(--gold);
+cursor:pointer;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+background:#111;
+color:white;
+padding:60px;
+}
+
+.footer-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:40px;
+}
+
+/* ================= PARTICLES ================= */
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
+opacity:.25;
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="particles"></canvas>
+
+<!-- NAV -->
+
+<nav>
+<div class="logo">Kabini AgroGlobal</div>
+
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="products.html">Products</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="cart.html">Cart</a></li>
+<li><a href="checkout.html">Checkout</a></li>
+<li><a href="flashsales.html">Flash</a></li>
+</ul>
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+<h1>About Kabini AgroGlobal</h1>
+<p>We are building Africa’s largest digital agriculture marketplace connecting farmers directly to global buyers.</p>
+</section>
+
+<!-- MISSION -->
+
+<section class="section grid">
+
+<div class="card">
+<h2>🌱 Our Mission</h2>
+<p>To empower farmers with digital tools, global reach, and fair pricing systems.</p>
+</div>
+
+<div class="card">
+<h2>🌍 Our Vision</h2>
+<p>To revolutionize agriculture commerce across Africa and beyond using technology.</p>
+</div>
+
+</section>
+
+<!-- STATS -->
+
+<section class="section stats">
+
+<div class="stat">
+<h2 id="farmers">0</h2>
+<p>Farmers</p>
+</div>
+
+<div class="stat">
+<h2 id="products">0</h2>
+<p>Products</p>
+</div>
+
+<div class="stat">
+<h2 id="orders">0</h2>
+<p>Orders</p>
+</div>
+
+</section>
+
+<!-- TEAM -->
+
+<section class="section">
+
+<h2 style="text-align:center;margin-bottom:40px;">Our Team</h2>
+
+<div class="grid team">
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1595152772835-219674b2a8a0">
+<h3>Founder</h3>
+<p>Visionary leader behind Kabini.</p>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e">
+<h3>Operations</h3>
+<p>Ensuring smooth logistics globally.</p>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1552374196-c4e7ffc6e126">
+<h3>Marketing</h3>
+<p>Driving global reach and branding.</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- CTA -->
+
+<section class="cta">
+<h2>Join the Future of Agriculture</h2>
+<p>Become a farmer or start buying globally today.</p>
+<button class="btn" onclick="location.href='register.html'">Get Started</button>
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+<div class="footer-grid">
+
+<div>
+<h3>Kabini AgroGlobal</h3>
+<p>Global agriculture marketplace.</p>
+</div>
+
+<div>
+<h4>Marketplace</h4>
+<p>Products</p>
+<p>Farmers</p>
+</div>
+
+<div>
+<h4>Support</h4>
+<p>Help Center</p>
+<p>Shipping</p>
+</div>
+
+</div>
+</footer>
+
+<!-- SCRIPT -->
+
+<script>
+
+/* ================= LIVE STATS ================= */
+
+document.getElementById("farmers").innerText = 540
+document.getElementById("products").innerText = 120
+document.getElementById("orders").innerText = 2800
+
+/* ================= PARTICLES ================= */
+
+const canvas=document.getElementById("particles")
+const ctx=canvas.getContext("2d")
+
+canvas.width=innerWidth
+canvas.height=innerHeight
+
+let particles=[]
+
+for(let i=0;i<60;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2,
+vx:Math.random()-.5,
+vy:Math.random()-.5
+})
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height)
+
+particles.forEach(p=>{
+p.x+=p.vx
+p.y+=p.vy
+
+ctx.beginPath()
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2)
+ctx.fillStyle="rgba(31,122,58,.5)"
+ctx.fill()
+})
+
+requestAnimationFrame(animate)
+}
+
+animate()
+
+</script>
+
+</body>
+</html>

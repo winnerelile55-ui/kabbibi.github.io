@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Kabini AgroGlobal | Products</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= ROOT ================= */
+:root{
+--green:#1F7A3A;
+--dark-green:#145A2A;
+--gold:#E8A317;
+--bg:#F5F7F2;
+--radius:20px;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:var(--bg);
+}
+
+/* ================= NAV ================= */
+nav{
+position:fixed;
+top:0;
+width:100%;
+display:flex;
+justify-content:space-between;
+padding:20px 50px;
+background:rgba(255,255,255,.8);
+backdrop-filter:blur(15px);
+z-index:100;
+}
+
+.logo{
+font-weight:700;
+font-size:22px;
+color:var(--green);
+}
+
+nav ul{
+display:flex;
+gap:25px;
+list-style:none;
+}
+
+nav a{
+text-decoration:none;
+color:#333;
+}
+
+/* ================= HEADER ================= */
+.header{
+padding:120px 20px 40px;
+text-align:center;
+background:linear-gradient(rgba(31,122,58,.8),rgba(20,90,42,.8)),
+url("https://images.unsplash.com/photo-1500937386664-56d1dfef3854");
+color:white;
+}
+
+.header h1{
+font-size:3rem;
+}
+
+/* ================= FILTER ================= */
+.controls{
+max-width:1200px;
+margin:40px auto;
+display:flex;
+gap:20px;
+flex-wrap:wrap;
+padding:0 20px;
+}
+
+input, select{
+padding:12px;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+/* ================= PRODUCTS ================= */
+.grid{
+max-width:1200px;
+margin:40px auto;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:25px;
+padding:0 20px;
+}
+
+.card{
+background:white;
+border-radius:var(--radius);
+padding:15px;
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+position:relative;
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-8px);
+}
+
+/* SALE */
+.sale{
+position:absolute;
+top:10px;
+right:10px;
+background:red;
+color:white;
+padding:5px 10px;
+border-radius:20px;
+font-size:12px;
+}
+
+/* TIMER */
+.timer-badge{
+position:absolute;
+top:10px;
+left:10px;
+background:var(--gold);
+padding:5px 10px;
+border-radius:20px;
+font-size:12px;
+font-weight:600;
+}
+
+.card img{
+width:100%;
+height:180px;
+object-fit:cover;
+border-radius:10px;
+}
+
+.price{
+color:var(--green);
+margin:10px 0;
+font-weight:600;
+}
+
+button{
+width:100%;
+padding:12px;
+border:none;
+border-radius:30px;
+background:var(--green);
+color:white;
+cursor:pointer;
+margin-top:5px;
+}
+
+button:hover{
+background:var(--dark-green);
+}
+
+.details-btn{
+background:var(--gold);
+color:black;
+}
+
+/* ================= FOOTER ================= */
+footer{
+background:#111;
+color:white;
+padding:40px;
+text-align:center;
+margin-top:60px;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+<div class="logo">Kabini AgroGlobal</div>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="products.html">Products</a></li>
+<li><a href="cart.html">Cart</a></li>
+<li><a href="checkout.html">Checkout</a></li>
+<li><a href="flashsales.html">FlashSales</a></li>
+</ul>
+</nav>
+
+<section class="header">
+<h1>Explore Marketplace</h1>
+<p>Fresh agricultural products directly from farmers</p>
+</section>
+
+<div class="controls">
+<input type="text" id="search" placeholder="Search products...">
+<select id="category">
+<option value="all">All</option>
+<option value="grain">Grains</option>
+<option value="fruit">Fruits</option>
+<option value="livestock">Livestock</option>
+</select>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<footer>
+<p>Kabini AgroGlobal © 2026</p>
+</footer>
+
+<script>
+
+/* ================= PRODUCTS ================= */
+const products=[
+{id:1,name:"Organic Rice",price:15000,cat:"grain",img:"https://images.unsplash.com/photo-1586201375761-83865001e31c",sale:true},
+{id:2,name:"Fresh Apples",price:4000,cat:"fruit",img:"https://images.unsplash.com/photo-1567306226416-28f0efdc88ce",sale:true},
+{id:3,name:"Cow",price:80000,cat:"livestock",img:"https://images.unsplash.com/photo-1500595046743-cd271d694d30",sale:false},
+{id:4,name:"Tomatoes",price:3000,cat:"fruit",img:"https://images.unsplash.com/photo-1546470427-e5ac89c8a6d8",sale:true},
+{id:5,name:"Goat",price:25000,cat:"livestock",img:"https://images.unsplash.com/photo-1601758123927-196c1a9c4c65",sale:true},
+{id:6,name:"fish",price:25000,cat:"livestock",img:"https://images.unsplash.com/photo-1601758123927-196c1a9c4c65",sale:false},
+{id:6,name:"fish",price:25000,cat:"livestock",img:"https://images.unsplash.com/photo-1601758123927-196c1a9c4c65",sale:false},
+{id:6,name:"fish",price:25000,cat:"livestock",img:"https://images.unsplash.com/photo-1601758123927-196c1a9c4c65",sale:false},
+{id:6,name:"fish",price:25000,cat:"livestock",img:"https://images.unsplash.com/photo-1601758123927-196c1a9c4c65",sale:false},
+{id:6,name:"fish",price:25000,cat:"livestock",img:"https://images.unsplash.com/photo-1601758123927-196c1a9c4c65",sale:false},
+{id:6,name:"fish",price:25000,cat:"livestock",img:"https://images.unsplash.com/photo-1601758123927-196c1a9c4c65",sale:false},
+{id:6,name:"fish",price:25000,cat:"livestock",img:"https://images.unsplash.com/photo-1601758123927-196c1a9c4c65",sale:false},
+{id:6,name:"fish",price:25000,cat:"livestock",img:"https://images.unsplash.com/photo-1601758123927-196c1a9c4c65",sale:false},
+{id:6,name:"fish",price:25000,cat:"livestock",img:"https://images.unsplash.com/photo-1601758123927-196c1a9c4c65",sale:true},
+
+
+
+
+
+
+]
+
+/* ================= TIMER ================= */
+function getTimer(end){
+let now=new Date().getTime()
+let d=end-now
+
+let h=Math.floor(d/(1000*60*60))
+let m=Math.floor((d%(1000*60*60))/(1000*60))
+let s=Math.floor((d%(1000*60))/1000)
+
+return `${h}h ${m}m ${s}s`
+}
+
+/* ================= RENDER ================= */
+function render(){
+
+const grid=document.getElementById("grid")
+grid.innerHTML=""
+
+let search=document.getElementById("search").value.toLowerCase()
+let cat=document.getElementById("category").value
+
+products.forEach(p=>{
+
+if(p.name.toLowerCase().includes(search) && (cat==="all"||p.cat===cat)){
+
+let end=new Date().getTime()+86400000
+
+grid.innerHTML+=`
+
+<div class="card">
+
+${p.sale?'<div class="sale">SALE</div>':''}
+
+<div class="timer-badge" id="timer-${p.id}">...</div>
+
+<img src="${p.img}">
+
+<h4>${p.name}</h4>
+
+<p class="price">₦${p.price}</p>
+
+<button onclick="addToCart(${p.id})">Add To Cart</button>
+
+<button class="details-btn" onclick="viewDetails(${p.id})">View Details</button>
+
+</div>
+
+`
+
+setInterval(()=>{
+document.getElementById(`timer-${p.id}`).innerText=getTimer(end)
+},1000)
+
+}
+
+})
+
+}
+
+render()
+
+/* ================= FILTER ================= */
+document.getElementById("search").oninput=render
+document.getElementById("category").onchange=render
+
+/* ================= CART ================= */
+function addToCart(id){
+
+let cart=JSON.parse(localStorage.getItem("cart"))||[]
+
+let product=products.find(p=>p.id===id)
+
+let item=cart.find(i=>i.id===id)
+
+if(item) item.qty++
+else cart.push({...product,qty:1})
+
+localStorage.setItem("cart",JSON.stringify(cart))
+
+alert(product.name+" added to cart")
+
+}
+
+/* ================= DETAILS PAGE ================= */
+function viewDetails(id){
+
+localStorage.setItem("selectedProduct",id)
+
+window.location.href="product-details.html"
+
+}
+
+</script>
+<script src="shippingCalculator.js"></script>
+</body>
+</html>

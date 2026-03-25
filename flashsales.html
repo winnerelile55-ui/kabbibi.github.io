@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kabini AgroGlobal | Flash Sales</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ================= ROOT ================= */
+:root{
+--green:#1F7A3A;
+--dark-green:#145A2A;
+--brown:#6B4F2A;
+--gold:#E8A317;
+--bg:#F5F7F2;
+--glass:rgba(255,255,255,.18);
+--glass-border:rgba(255,255,255,.3);
+--radius:22px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:var(--bg);overflow-x:hidden;color:#333;}
+
+/* ================= PARTICLES ================= */
+canvas{position:fixed;top:0;left:0;z-index:-1;opacity:.25;}
+
+/* ================= NAVBAR ================= */
+nav{
+position:fixed;top:0;width:100%;display:flex;justify-content:space-between;align-items:center;
+padding:20px 60px;background:rgba(255,255,255,.65);backdrop-filter:blur(18px);
+border-bottom:1px solid rgba(0,0,0,.05);z-index:100;
+}
+.logo{font-size:24px;font-weight:700;color:var(--green);}
+nav ul{display:flex;gap:30px;list-style:none;}
+nav a{text-decoration:none;color:#333;font-weight:500;transition:.3s;}
+nav a:hover{color:var(--green);}
+
+/* ================= HERO ================= */
+.hero{
+min-height:80vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+padding:120px 20px;
+background:linear-gradient(rgba(31,122,58,.75),rgba(20,90,42,.75)),
+url("https://images.unsplash.com/photo-1572656637003-8d1d5cb7ab6a");
+background-size:cover;color:white;
+}
+.hero h1{font-size:4rem;background:linear-gradient(90deg,#fff,#E8A317);
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+animation:floatText 6s ease-in-out infinite;}
+@keyframes floatText{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.hero p{max-width:650px;margin-top:20px;}
+.btn{margin-top:30px;padding:14px 40px;border:none;border-radius:50px;background:var(--gold);
+font-weight:600;cursor:pointer;transition:.3s;}
+.btn:hover{transform:translateY(-3px);}
+
+/* ================= FLASH SALE SECTION ================= */
+.flash-sale-section{
+max-width:1400px;margin:100px auto;padding:0 20px;
+}
+.flash-sale-section h2{text-align:center;font-size:3rem;margin-bottom:20px;color:var(--green);}
+.flash-timer{text-align:center;font-size:2rem;font-weight:600;margin-bottom:50px;}
+.flash-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:30px;
+}
+.flash-card{
+background:white;border-radius:var(--radius);overflow:hidden;
+box-shadow:0 20px 50px rgba(0,0,0,.08);transition:.3s;
+}
+.flash-card:hover{transform:translateY(-8px);}
+.flash-card img{width:100%;border-bottom:1px solid #ddd;}
+.flash-card h3{padding:15px;font-size:1.2rem;color:var(--green);}
+.flash-card p{padding:0 15px 15px;font-weight:500;}
+.flash-card .price{color:var(--gold);font-weight:600;margin:0 15px 15px;}
+.flash-card .btn{margin:0 15px 15px;display:block;width:calc(100% - 30px);}
+
+/* ================= LIVE METRICS ================= */
+.metrics{max-width:1200px;margin:80px auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;padding:0 20px;}
+.metric{background:var(--glass);border:1px solid var(--glass-border);backdrop-filter:blur(18px);padding:30px;border-radius:var(--radius);text-align:center;}
+.metric h2{color:var(--green);font-size:2rem;}
+
+/* ================= NEWSLETTER ================= */
+.newsletter{padding:80px 20px;text-align:center;}
+.newsletter input{padding:14px;width:260px;border-radius:6px;border:1px solid #ccc;margin-right:10px;}
+
+/* ================= FOOTER ================= */
+footer{background:#111;color:white;padding:60px 40px;}
+.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;}
+footer p{opacity:.7;}
+
+/* ================= MOBILE ================= */
+@media(max-width:900px){
+.hero h1{font-size:2.5rem;}
+nav{padding:20px;}
+.flash-sale-section h2{font-size:2rem;}
+.flash-timer{font-size:1.5rem;}
+}
+</style>
+</head>
+
+<body>
+<canvas id="particles"></canvas>
+
+<nav>
+<div class="logo">Kabini AgroGlobal</div>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="products.html">Products</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="admin.html">Admin</a></li>
+<li><a href="cart.html">Cart</a></li>
+<li><a href="checkout.html">Checkout</a></li>
+<li><a href="flashsales.html">Flash Sales</a></li>
+<li><a href="invoice.html">Invoice</a></li>
+<li><a href="receipt.html">Receipt</a></li>
+</ul>
+</nav>
+
+<section class="hero">
+<h1>🔥 Flash Sales Live!</h1>
+<p>Grab the best farm products at unbeatable prices. Limited time only!</p>
+<button class="btn">Shop Now</button>
+</section>
+
+<section class="flash-sale-section">
+<h2>Today's Flash Deals</h2>
+<div class="flash-timer" id="flashTimer">24:00:00</div>
+<div class="flash-grid" id="flashGrid"></div>
+</section>
+
+<section class="metrics">
+<div class="metric"><h2 id="farmers">0</h2><p>Farmers</p></div>
+<div class="metric"><h2 id="productsCount">0</h2><p>Products</p></div>
+<div class="metric"><h2 id="orders">0</h2><p>Orders</p></div>
+<div class="metric"><h2 id="sales">0</h2><p>Live Sales</p></div>
+</section>
+
+<section class="newsletter">
+<h2>Subscribe for Updates</h2>
+<input type="email" placeholder="Enter your email">
+<button class="btn">Subscribe</button>
+</section>
+
+<footer>
+<div class="footer-grid">
+<div>
+<h3>Kabini AgroGlobal</h3>
+<p>Global agriculture marketplace.</p>
+</div>
+<div>
+<h4>Marketplace</h4>
+<p>Products</p>
+<p>Farmers</p>
+<p>Flash Sales</p>
+</div>
+<div>
+<h4>Company</h4>
+<p>About</p>
+<p>Careers</p>
+</div>
+<div>
+<h4>Support</h4>
+<p>Help Center</p>
+<p>Shipping</p>
+</div>
+</div>
+</footer>
+
+<script>
+/* ================= PARTICLES ================= */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+canvas.width=innerWidth; canvas.height=innerHeight;
+let particles=[];
+for(let i=0;i<80;i++){particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2,vx:Math.random()-.5,vy:Math.random()-.5});}
+function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle="rgba(31,122,58,.5)";ctx.fill();});requestAnimationFrame(animate);}
+animate();
+
+/* ================= FLASH SALE PRODUCTS ================= */
+const flashProducts=[
+{id:1,name:"Organic Rice",price:12000,img:"https://images.unsplash.com/photo-1586201375761-83865001e31c"},
+{id:2,name:"Fresh Apples",price:3500,img:"https://images.unsplash.com/photo-1567306226416-28f0efdc88ce"},
+{id:3,name:"Cows",price:7500,img:"NEXACORE CANVAS/tmp-1589792989118857216-6E9BT6.jpg"},
+{id:4,name:"Tomatoes",price:3000,img:"NEXACORE CANVAS/285d7a8f99671955dc581f66d5894490.jpg"},
+{id:5,name:"Goats",price:4000,img:"NEXACORE CANVAS/tmp-1589792989118857216-JF1KY8.jpg"},
+{id:6,name:"Eggs Pack",price:2500,img:"NEXACORE CANVAS/tmp-1589792989118857216-DFWW4g.jpg"},
+];
+
+document.getElementById("productsCount").innerText=flashProducts.length;
+
+function renderFlashProducts(){
+const grid=document.getElementById("flashGrid");
+flashProducts.forEach(p=>{
+grid.innerHTML+=`<div class="flash-card">
+<img src="${p.img}">
+<h3>${p.name}</h3>
+<p class="price">₦${p.price}</p>
+<button class="btn" onclick="addToCart(${p.id})">Add To Cart</button>
+</div>`;
+});
+}
+renderFlashProducts();
+
+function addToCart(id){
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+const product=flashProducts.find(p=>p.id===id);
+const item=cart.find(p=>p.id===id);
+if(item)item.qty++; else cart.push({...product,qty:1});
+localStorage.setItem("cart",JSON.stringify(cart));
+alert(product.name+" added to cart!");
+}
+
+/* ================= FLASH TIMER ================= */
+let end=new Date().getTime()+24*60*60*1000;
+setInterval(()=>{
+let now=new Date().getTime();
+let distance=end-now;
+let h=Math.floor(distance/(1000*60*60));
+let m=Math.floor((distance%(1000*60*60))/(1000*60));
+let s=Math.floor((distance%(1000*60))/1000);
+document.getElementById("flashTimer").innerText=`${h}:${m}:${s}`;
+},1000);
+
+/* ================= LIVE METRICS ================= */
+let sales=150;
+setInterval(()=>{sales+=Math.floor(Math.random()*5); document.getElementById("sales").innerText=sales;},2000);
+document.getElementById("farmers").innerText=540;
+document.getElementById("orders").innerText=2800;
+</script>
+<script src="shippingCalculator.js"></script>
+</body>
+</html>

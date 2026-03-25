@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Kabini Checkout</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= ROOT ================= */
+
+:root{
+--green:#1F7A3A;
+--dark-green:#145A2A;
+--gold:#E8A317;
+--bg:#F5F7F2;
+--glass:rgba(255,255,255,.2);
+--radius:20px;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:var(--bg);
+}
+
+/* ================= NAV ================= */
+
+nav{
+position:fixed;
+top:0;
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 60px;
+background:rgba(255,255,255,.7);
+backdrop-filter:blur(12px);
+z-index:100;
+}
+
+.logo{
+font-weight:700;
+color:var(--green);
+font-size:22px;
+}
+
+nav ul{
+display:flex;
+gap:25px;
+list-style:none;
+}
+
+nav a{
+text-decoration:none;
+color:#333;
+}
+
+/* ================= MAIN ================= */
+
+.container{
+max-width:1200px;
+margin:120px auto;
+padding:20px;
+}
+
+.checkout-grid{
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:30px;
+}
+
+@media(max-width:900px){
+.checkout-grid{
+grid-template-columns:1fr;
+}
+}
+
+/* ================= FORM ================= */
+
+.form-box{
+background:white;
+padding:25px;
+border-radius:var(--radius);
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.form-box h2{
+margin-bottom:20px;
+}
+
+.input{
+margin-bottom:15px;
+}
+
+.input input, .input textarea{
+width:100%;
+padding:12px;
+border:1px solid #ccc;
+border-radius:8px;
+}
+
+textarea{
+resize:none;
+height:100px;
+}
+
+/* ================= SUMMARY ================= */
+
+.summary{
+background:var(--glass);
+backdrop-filter:blur(15px);
+padding:20px;
+border-radius:var(--radius);
+border:1px solid rgba(255,255,255,.3);
+}
+
+.summary h3{
+margin-bottom:20px;
+}
+
+.summary-item{
+display:flex;
+justify-content:space-between;
+margin:8px 0;
+font-size:14px;
+}
+
+.total{
+font-size:18px;
+font-weight:600;
+margin-top:15px;
+display:flex;
+justify-content:space-between;
+}
+
+/* ================= BUTTON ================= */
+
+.btn{
+width:100%;
+padding:14px;
+margin-top:20px;
+border:none;
+border-radius:50px;
+background:var(--gold);
+cursor:pointer;
+font-weight:600;
+}
+
+/* ================= EMPTY ================= */
+
+.empty{
+text-align:center;
+padding:40px;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+<div class="logo">Kabini AgroGlobal</div>
+
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="products.html">Products</a></li>
+<li><a href="cart.html">Cart</a></li>
+<li><a href="checkout.html">Checkout</a></li>
+</ul>
+</nav>
+
+<div class="container">
+
+<h1>Checkout</h1>
+
+<div class="checkout-grid">
+
+<!-- FORM -->
+<div class="form-box">
+
+<h2>Billing Details</h2>
+
+<div class="input">
+<input id="name" placeholder="Full Name">
+</div>
+
+<div class="input">
+<input id="email" placeholder="Email Address">
+</div>
+
+<div class="input">
+<input id="phone" placeholder="Phone Number">
+</div>
+
+<div class="input">
+<textarea id="address" placeholder="Delivery Address"></textarea>
+</div>
+
+<h2>Payment Method</h2>
+
+<div class="input">
+<input type="radio" name="pay" checked> Pay on Delivery
+</div>
+
+<div class="input">
+<input type="radio" name="pay"> Card Payment (Demo)
+</div>
+
+<button class="btn" onclick="placeOrder()">Place Order</button>
+
+</div>
+
+<!-- SUMMARY -->
+<div class="summary">
+
+<h3>Order Summary</h3>
+
+<div id="summaryItems"></div>
+
+<div class="total">
+<span>Total</span>
+<span id="total">₦0</span>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* ================= LOAD CART ================= */
+
+let cart = JSON.parse(localStorage.getItem("cart")) || []
+
+const summaryContainer = document.getElementById("summaryItems")
+
+function renderSummary(){
+
+if(cart.length === 0){
+summaryContainer.innerHTML = `<div class="empty">Cart is empty</div>`
+return
+}
+
+let total = 0
+
+cart.forEach(item => {
+
+total += item.price * item.qty
+
+summaryContainer.innerHTML += `
+
+<div class="summary-item">
+<span>${item.name} x${item.qty}</span>
+<span>₦${item.price * item.qty}</span>
+</div>
+
+`
+
+})
+
+document.getElementById("total").innerText = "₦" + (total + 2000)
+
+}
+
+renderSummary()
+
+/* ================= PLACE ORDER ================= */
+
+function placeOrder(){
+
+let name = document.getElementById("name").value
+let email = document.getElementById("email").value
+let phone = document.getElementById("phone").value
+let address = document.getElementById("address").value
+
+if(!name || !email || !phone || !address){
+alert("Please fill all fields")
+return
+}
+
+if(cart.length === 0){
+alert("Cart is empty")
+return
+}
+
+/* CREATE ORDER */
+
+let order = {
+id: Date.now(),
+customer:{name,email,phone,address},
+items: cart,
+date: new Date().toLocaleString(),
+status:"Processing"
+}
+
+/* SAVE ORDERS */
+
+let orders = JSON.parse(localStorage.getItem("orders")) || []
+orders.push(order)
+
+localStorage.setItem("orders", JSON.stringify(orders))
+
+/* CLEAR CART */
+
+localStorage.removeItem("cart")
+
+/* STORE LAST ORDER */
+
+localStorage.setItem("lastOrder", JSON.stringify(order))
+
+/* REDIRECT */
+
+window.location.href = "receipt.html"
+
+}
+
+</script>
+<select id="paymentMethod">
+  <option value="card">Card</option>
+  <option value="bank">Bank Transfer</option>
+  <option value="ussd">USSD</option>
+  <option value="wallet">Wallet</option>
+</select>
+
+<div id="paymentDetails"></div>
+
+<p>Subtotal: <span id="subtotal"></span></p>
+<p>Shipping: <span id="shippingFee"></span></p>
+<p>Payment Fee: <span id="paymentFee"></span></p>
+<h2>Total: <span id="grandTotal"></span></h2>
+
+<button id="payBtn" class="btn">Pay Now</button>
+<script src="shippingCalculator.js"></script>
+<select id="shippingLocation">
+  <option>Abuja</option>
+  <option>Lagos</option>
+  <option>Port Harcourt</option>
+  <option>Kano</option>
+</select>
+
+<select id="deliveryType">
+  <option value="standard">Standard</option>
+  <option value="express">Express</option>
+</select>
+
+<label>
+  <input type="checkbox" id="international"> International Delivery
+</label>
+
+<h3>Shipping Cost: <span id="shippingCost"></span></h3>
+<p>Delivery Time: <span id="deliveryTime"></span></p>
+</body>
+</html>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Kabini AgroGlobal | Register</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= ROOT ================= */
+:root{
+--green:#1F7A3A;
+--dark-green:#145A2A;
+--gold:#E8A317;
+--bg:#F5F7F2;
+--glass:rgba(255,255,255,.18);
+--glass-border:rgba(255,255,255,.3);
+--radius:22px;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:var(--bg);
+overflow:hidden;
+}
+
+/* ================= PARTICLES ================= */
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
+opacity:.25;
+}
+
+/* ================= NAV ================= */
+nav{
+position:fixed;
+top:0;
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 60px;
+background:rgba(255,255,255,.65);
+backdrop-filter:blur(18px);
+z-index:100;
+}
+
+.logo{
+font-weight:700;
+font-size:22px;
+color:var(--green);
+}
+
+/* ================= LAYOUT ================= */
+.container{
+display:flex;
+height:100vh;
+}
+
+/* LEFT SIDE */
+.left{
+flex:1;
+display:flex;
+flex-direction:column;
+justify-content:center;
+padding:80px;
+background:
+linear-gradient(rgba(31,122,58,.8),rgba(20,90,42,.8)),
+url("https://images.unsplash.com/photo-1500937386664-56d1dfef3854");
+background-size:cover;
+color:white;
+}
+
+.left h1{
+font-size:3rem;
+margin-bottom:20px;
+}
+
+.left p{
+max-width:400px;
+opacity:.9;
+}
+
+/* RIGHT SIDE */
+.right{
+flex:1;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+/* ================= FORM ================= */
+.form-box{
+width:380px;
+padding:40px;
+background:var(--glass);
+border:1px solid var(--glass-border);
+backdrop-filter:blur(20px);
+border-radius:var(--radius);
+box-shadow:0 20px 50px rgba(0,0,0,.1);
+}
+
+.form-box h2{
+text-align:center;
+margin-bottom:20px;
+color:var(--green);
+}
+
+.input-group{
+margin-bottom:15px;
+}
+
+.input-group input{
+width:100%;
+padding:12px;
+border-radius:8px;
+border:1px solid #ccc;
+outline:none;
+}
+
+.btn{
+width:100%;
+padding:14px;
+border:none;
+border-radius:50px;
+background:var(--gold);
+font-weight:600;
+cursor:pointer;
+margin-top:10px;
+transition:.3s;
+}
+
+.btn:hover{
+transform:translateY(-2px);
+}
+
+.switch{
+text-align:center;
+margin-top:15px;
+}
+
+.switch a{
+color:var(--green);
+text-decoration:none;
+}
+
+/* ================= USER STATUS ================= */
+.user-box{
+position:fixed;
+top:90px;
+right:30px;
+background:white;
+padding:12px 20px;
+border-radius:50px;
+box-shadow:0 5px 20px rgba(0,0,0,.1);
+display:none;
+}
+
+/* ================= MOBILE ================= */
+@media(max-width:900px){
+.container{
+flex-direction:column;
+}
+.left{
+display:none;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="particles"></canvas>
+
+<nav>
+<div class="logo">Kabini AgroGlobal</div>
+</nav>
+
+<div class="user-box" id="userBox"></div>
+
+<div class="container">
+
+<div class="left">
+<h1>Join Kabini</h1>
+<p>Register to access global agricultural markets, manage orders, and grow your farm business.</p>
+</div>
+
+<div class="right">
+
+<div class="form-box">
+
+<h2>Create Account</h2>
+
+<div class="input-group">
+<input type="text" id="name" placeholder="Full Name">
+</div>
+
+<div class="input-group">
+<input type="email" id="email" placeholder="Email">
+</div>
+
+<div class="input-group">
+<input type="password" id="password" placeholder="Password">
+</div>
+
+<div class="input-group">
+<input type="password" id="confirm" placeholder="Confirm Password">
+</div>
+
+<button class="btn" onclick="register()">Register</button>
+
+<div class="switch">
+Already have an account? <a href="login.html">Login</a>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* ================= REGISTER ================= */
+
+function register(){
+
+let name=document.getElementById("name").value
+let email=document.getElementById("email").value
+let password=document.getElementById("password").value
+let confirm=document.getElementById("confirm").value
+
+if(!name || !email || !password){
+alert("Please fill all fields")
+return
+}
+
+if(password !== confirm){
+alert("Passwords do not match")
+return
+}
+
+let users=JSON.parse(localStorage.getItem("users"))||[]
+
+if(users.find(u=>u.email===email)){
+alert("User already exists")
+return
+}
+
+let user={
+id:Date.now(),
+name,
+email,
+password
+}
+
+users.push(user)
+
+localStorage.setItem("users",JSON.stringify(users))
+
+/* AUTO LOGIN */
+localStorage.setItem("currentUser",JSON.stringify(user))
+
+alert("Registration successful!")
+
+window.location.href="index.html"
+
+}
+
+/* ================= SHOW USER ================= */
+
+let currentUser=JSON.parse(localStorage.getItem("currentUser"))
+
+if(currentUser){
+let box=document.getElementById("userBox")
+box.style.display="block"
+box.innerText="👤 "+currentUser.name
+}
+
+/* ================= PARTICLES ================= */
+
+const canvas=document.getElementById("particles")
+const ctx=canvas.getContext("2d")
+
+canvas.width=innerWidth
+canvas.height=innerHeight
+
+let particles=[]
+
+for(let i=0;i<80;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2,
+vx:Math.random()-.5,
+vy:Math.random()-.5
+})
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height)
+
+particles.forEach(p=>{
+p.x+=p.vx
+p.y+=p.vy
+
+ctx.beginPath()
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2)
+ctx.fillStyle="rgba(31,122,58,.5)"
+ctx.fill()
+})
+
+requestAnimationFrame(animate)
+}
+
+animate()
+
+</script>
+
+</body>
+</html>

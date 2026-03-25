@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kabini AgroGlobal | Farmer Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--green:#1F7A3A;
+--dark-green:#145A2A;
+--gold:#E8A317;
+--bg:#F5F7F2;
+--glass:rgba(255,255,255,.18);
+--radius:20px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{background:var(--bg)}
+
+nav{
+position:fixed;
+top:0;width:100%;
+display:flex;justify-content:space-between;align-items:center;
+padding:20px 60px;
+background:rgba(255,255,255,.7);
+backdrop-filter:blur(12px);
+z-index:100;
+}
+
+.logo{font-size:22px;font-weight:700;color:var(--green)}
+nav ul{display:flex;gap:20px;list-style:none}
+nav a{text-decoration:none;color:#333}
+
+.container{max-width:1300px;margin:120px auto;padding:20px}
+
+.dashboard-grid{
+display:grid;
+grid-template-columns:1.5fr 1fr;
+gap:30px;
+}
+
+@media(max-width:900px){
+.dashboard-grid{grid-template-columns:1fr}
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:var(--radius);
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+h2{margin-bottom:15px}
+
+input,textarea{
+width:100%;padding:12px;margin:10px 0;
+border:1px solid #ccc;border-radius:8px;
+}
+
+button{
+padding:12px 20px;border:none;border-radius:30px;
+background:var(--gold);cursor:pointer;font-weight:600;
+}
+
+.product-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:15px;
+margin-top:15px;
+}
+
+.product{
+padding:15px;background:var(--glass);
+border-radius:15px;
+}
+
+.product img{width:100%;border-radius:10px}
+
+.product-actions{
+display:flex;justify-content:space-between;margin-top:10px;
+}
+
+.order{
+padding:10px;border-bottom:1px solid #eee;
+}
+
+.stats{
+display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-bottom:20px}
+.stat{
+background:var(--glass);padding:15px;border-radius:12px;text-align:center
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+<div class="logo">Kabini Farmer</div>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="products.html">Products</a></li>
+<li><a href="cart.html">Cart</a></li>
+<li><a href="checkout.html">Checkout</a></li>
+<li><a href="admin.html">Admin</a></li>
+</ul>
+</nav>
+
+<div class="container">
+
+<h1>Farmer Dashboard</h1>
+
+<div class="dashboard-grid">
+
+<!-- LEFT -->
+<div>
+
+<div class="card">
+<h2>Add New Product</h2>
+<input id="name" placeholder="Product Name">
+<input id="price" placeholder="Price">
+<input id="img" placeholder="Image URL">
+<button onclick="addProduct()">Add Product</button>
+</div>
+
+<div class="card">
+<h2>Your Products</h2>
+<div class="product-grid" id="productList"></div>
+</div>
+
+</div>
+
+<!-- RIGHT -->
+<div>
+
+<div class="card">
+<h2>Analytics</h2>
+<div class="stats">
+<div class="stat"><h3 id="totalProducts">0</h3><p>Products</p></div>
+<div class="stat"><h3 id="totalOrders">0</h3><p>Orders</p></div>
+<div class="stat"><h3 id="revenue">₦0</h3><p>Revenue</p></div>
+<div class="stat"><h3 id="itemsSold">0</h3><p>Items Sold</p></div>
+</div>
+</div>
+
+<div class="card">
+<h2>Recent Orders</h2>
+<div id="ordersList"></div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+let products = JSON.parse(localStorage.getItem("products")) || []
+let orders = JSON.parse(localStorage.getItem("orders")) || []
+
+function addProduct(){
+let name=document.getElementById("name").value
+let price=document.getElementById("price").value
+let img=document.getElementById("img").value
+
+if(!name||!price||!img){alert("Fill all fields");return}
+
+let product={id:Date.now(),name,price:Number(price),img}
+products.push(product)
+localStorage.setItem("products",JSON.stringify(products))
+
+renderProducts()
+updateStats()
+}
+
+function deleteProduct(id){
+products=products.filter(p=>p.id!==id)
+localStorage.setItem("products",JSON.stringify(products))
+renderProducts()
+updateStats()
+}
+
+function renderProducts(){
+let container=document.getElementById("productList")
+container.innerHTML=""
+
+products.forEach(p=>{
+container.innerHTML+=`
+<div class="product">
+<img src="${p.img}">
+<h4>${p.name}</h4>
+<p>₦${p.price}</p>
+<div class="product-actions">
+<button onclick="deleteProduct(${p.id})">Delete</button>
+</div>
+</div>
+`
+})
+
+}
+
+function renderOrders(){
+let container=document.getElementById("ordersList")
+container.innerHTML=""
+
+orders.forEach(o=>{
+container.innerHTML+=`
+<div class="order">
+<p><strong>Order #${o.id}</strong></p>
+<p>${o.customer.name}</p>
+<p>Status: ${o.status}</p>
+</div>
+`
+})
+}
+
+function updateStats(){
+let totalProducts=products.length
+let totalOrders=orders.length
+let revenue=0
+let itemsSold=0
+
+orders.forEach(o=>{
+o.items.forEach(i=>{
+revenue+=i.price*i.qty
+itemsSold+=i.qty
+})
+})
+
+document.getElementById("totalProducts").innerText=totalProducts
+
+document.getElementById("totalOrders").innerText=totalOrders
+
+document.getElementById("revenue").innerText="₦"+revenue
+
+document.getElementById("itemsSold").innerText=itemsSold
+}
+
+renderProducts()
+renderOrders()
+updateStats()
+
+</script>
+
+</body>
+</html>

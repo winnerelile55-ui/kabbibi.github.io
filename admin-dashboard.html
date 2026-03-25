@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Kabini Admin Dashboard</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= ROOT ================= */
+
+:root{
+--green:#1F7A3A;
+--dark-green:#145A2A;
+--gold:#E8A317;
+--bg:#F5F7F2;
+--glass:rgba(255,255,255,.18);
+--radius:20px;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+display:flex;
+background:var(--bg);
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+width:250px;
+height:100vh;
+background:linear-gradient(var(--green),var(--dark-green));
+color:white;
+padding:30px;
+position:fixed;
+}
+
+.sidebar h2{
+margin-bottom:30px;
+}
+
+.sidebar a{
+display:block;
+margin:15px 0;
+color:white;
+text-decoration:none;
+}
+
+/* ================= MAIN ================= */
+
+.main{
+margin-left:250px;
+padding:30px;
+width:100%;
+}
+
+/* ================= CARDS ================= */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:var(--radius);
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+/* ================= TABLE ================= */
+
+table{
+width:100%;
+margin-top:20px;
+border-collapse:collapse;
+}
+
+th,td{
+padding:12px;
+border-bottom:1px solid #ddd;
+}
+
+/* ================= FORM ================= */
+
+input{
+padding:10px;
+margin:5px;
+border-radius:5px;
+border:1px solid #ccc;
+}
+
+button{
+padding:10px 20px;
+background:var(--gold);
+border:none;
+cursor:pointer;
+border-radius:5px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<h2>Kabini Admin</h2>
+
+<a href="index.html">Home</a>
+<a href="products.html">Products</a>
+<a href="cart.html">Cart</a>
+<a href="checkout.html">Checkout</a>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<h1>Dashboard Overview</h1>
+
+<div class="grid">
+
+<div class="card">
+<h3>Total Products</h3>
+<p id="totalProducts">0</p>
+</div>
+
+<div class="card">
+<h3>Total Orders</h3>
+<p id="totalOrders">0</p>
+</div>
+
+<div class="card">
+<h3>Total Revenue</h3>
+<p id="revenue">₦0</p>
+</div>
+
+</div>
+
+<!-- ADD PRODUCT -->
+
+<h2 style="margin-top:40px;">Add Product</h2>
+
+<input id="name" placeholder="Product Name">
+<input id="price" placeholder="Price">
+<input id="img" placeholder="Image URL">
+
+<button onclick="addProduct()">Add</button>
+
+<!-- PRODUCTS TABLE -->
+
+<h2 style="margin-top:40px;">All Products</h2>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Price</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody id="productTable"></tbody>
+
+</table>
+
+</div>
+
+<script>
+
+/* ================= LOAD PRODUCTS ================= */
+
+let products = JSON.parse(localStorage.getItem("products")) || [
+
+{id:1,name:"Organic Rice",price:15000},
+{id:2,name:"Apples",price:4000}
+
+]
+
+function save(){
+localStorage.setItem("products", JSON.stringify(products))
+}
+
+/* ================= DISPLAY PRODUCTS ================= */
+
+function render(){
+
+document.getElementById("totalProducts").innerText = products.length
+
+let table = document.getElementById("productTable")
+table.innerHTML=""
+
+products.forEach(p=>{
+
+table.innerHTML += `
+<tr>
+<td>${p.name}</td>
+<td>₦${p.price}</td>
+<td><button onclick="deleteProduct(${p.id})">Delete</button></td>
+</tr>
+`
+
+})
+
+}
+
+/* ================= ADD PRODUCT ================= */
+
+function addProduct(){
+
+let name=document.getElementById("name").value
+let price=document.getElementById("price").value
+let img=document.getElementById("img").value
+
+let newProduct={
+id:Date.now(),
+name,
+price,
+img
+}
+
+products.push(newProduct)
+
+save()
+render()
+
+}
+
+/* ================= DELETE ================= */
+
+function deleteProduct(id){
+
+products = products.filter(p=>p.id!==id)
+
+save()
+render()
+
+}
+
+/* ================= ORDERS ================= */
+
+let cart = JSON.parse(localStorage.getItem("cart")) || []
+
+document.getElementById("totalOrders").innerText = cart.length
+
+let revenue = cart.reduce((acc,item)=> acc + item.price*item.qty,0)
+
+document.getElementById("revenue").innerText = "₦"+revenue
+
+render()
+
+</script>
+
+</body>
+</html>

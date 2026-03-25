@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Kabini AgroGlobal | Product Details</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= ROOT ================= */
+:root{
+--green:#1F7A3A;
+--dark-green:#145A2A;
+--gold:#E8A317;
+--bg:#F5F7F2;
+--radius:20px;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:var(--bg);
+}
+
+/* ================= NAV ================= */
+nav{
+position:fixed;
+top:0;
+width:100%;
+display:flex;
+justify-content:space-between;
+padding:20px 50px;
+background:rgba(255,255,255,.8);
+backdrop-filter:blur(15px);
+z-index:100;
+}
+
+.logo{
+font-weight:700;
+font-size:22px;
+color:var(--green);
+}
+
+nav ul{
+display:flex;
+gap:25px;
+list-style:none;
+}
+
+nav a{
+text-decoration:none;
+color:#333;
+}
+
+/* ================= CONTAINER ================= */
+.container{
+max-width:1200px;
+margin:120px auto;
+padding:20px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:40px;
+}
+
+/* ================= IMAGE ================= */
+.image-box img{
+width:100%;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,.1);
+}
+
+/* ================= DETAILS ================= */
+.details{
+background:white;
+padding:30px;
+border-radius:var(--radius);
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.details h2{
+margin-bottom:10px;
+}
+
+.price{
+color:var(--green);
+font-size:24px;
+margin:10px 0;
+}
+
+.desc{
+margin:20px 0;
+line-height:1.6;
+}
+
+/* ================= TIMER ================= */
+.timer{
+background:var(--gold);
+padding:10px;
+border-radius:10px;
+margin:15px 0;
+font-weight:600;
+}
+
+/* ================= QTY ================= */
+.qty{
+display:flex;
+gap:10px;
+margin:20px 0;
+}
+
+.qty button{
+width:40px;
+height:40px;
+border:none;
+background:var(--green);
+color:white;
+font-size:18px;
+border-radius:8px;
+cursor:pointer;
+}
+
+.qty input{
+width:60px;
+text-align:center;
+}
+
+/* ================= BUTTON ================= */
+.btn{
+width:100%;
+padding:15px;
+border:none;
+border-radius:30px;
+background:var(--green);
+color:white;
+font-weight:600;
+cursor:pointer;
+}
+
+.btn:hover{
+background:var(--dark-green);
+}
+
+/* ================= BACK ================= */
+.back{
+margin-bottom:20px;
+display:inline-block;
+color:var(--green);
+cursor:pointer;
+}
+
+/* ================= MOBILE ================= */
+@media(max-width:900px){
+.container{
+grid-template-columns:1fr;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+<div class="logo">Kabini AgroGlobal</div>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="products.html">Products</a></li>
+<li><a href="cart.html">Cart</a></li>
+<li><a href="checkout.html">Checkout</a></li>
+</ul>
+</nav>
+
+<div class="container">
+
+<div class="image-box">
+<img id="productImg">
+</div>
+
+<div class="details">
+
+<span class="back" onclick="goBack()">← Back to Products</span>
+
+<h2 id="name"></h2>
+
+<p class="price" id="price"></p>
+
+<div class="timer" id="timer">Loading timer...</div>
+
+<p class="desc">
+Premium farm product sourced directly from trusted farmers. Fresh, organic, and delivered globally with top quality assurance.
+</p>
+
+<div class="qty">
+<button onclick="changeQty(-1)">-</button>
+<input type="number" id="qty" value="1">
+<button onclick="changeQty(1)">+</button>
+</div>
+
+<button class="btn" onclick="addToCart()">Add To Cart</button>
+
+</div>
+
+</div>
+
+<script>
+
+/* ================= PRODUCTS DATABASE ================= */
+const products=[
+{id:1,name:"Organic Rice",price:15000,img:"https://images.unsplash.com/photo-1586201375761-83865001e31c"},
+{id:2,name:"Fresh Apples",price:4000,img:"https://images.unsplash.com/photo-1567306226416-28f0efdc88ce"},
+{id:3,name:"Cow",price:80000,img:"https://images.unsplash.com/photo-1500595046743-cd271d694d30"},
+{id:4,name:"Tomatoes",price:3000,img:"https://images.unsplash.com/photo-1546470427-e5ac89c8a6d8"},
+{id:5,name:"Goat",price:25000,img:"https://images.unsplash.com/photo-1601758123927-196c1a9c4c65"}
+]
+
+/* ================= LOAD PRODUCT ================= */
+let id=localStorage.getItem("selectedProduct")
+let product=products.find(p=>p.id==id)
+
+document.getElementById("name").innerText=product.name
+document.getElementById("price").innerText="₦"+product.price
+document.getElementById("productImg").src=product.img
+
+/* ================= TIMER ================= */
+let end=new Date().getTime()+86400000
+
+setInterval(()=>{
+let now=new Date().getTime()
+let d=end-now
+
+let h=Math.floor(d/(1000*60*60))
+let m=Math.floor((d%(1000*60*60))/(1000*60))
+let s=Math.floor((d%(1000*60))/1000)
+
+document.getElementById("timer").innerText=`Flash Sale Ends In: ${h}h ${m}m ${s}s`
+},1000)
+
+/* ================= QTY ================= */
+function changeQty(val){
+let input=document.getElementById("qty")
+input.value=Math.max(1,parseInt(input.value)+val)
+}
+
+/* ================= CART ================= */
+function addToCart(){
+
+let cart=JSON.parse(localStorage.getItem("cart"))||[]
+
+let qty=parseInt(document.getElementById("qty").value)
+
+let item=cart.find(i=>i.id==product.id)
+
+if(item) item.qty+=qty
+else cart.push({...product,qty:qty})
+
+localStorage.setItem("cart",JSON.stringify(cart))
+
+alert(product.name+" added to cart")
+
+}
+
+/* ================= BACK ================= */
+function goBack(){
+window.location.href="products.html"
+}
+
+</script>
+
+</body>
+</html>

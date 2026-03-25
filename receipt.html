@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kabini AgroGlobal | Receipt</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= ROOT ================= */
+:root{
+--green:#1F7A3A;
+--dark-green:#145A2A;
+--gold:#E8A317;
+--bg:#F5F7F2;
+--glass:rgba(255,255,255,.2);
+--radius:20px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+
+body{
+background:var(--bg);
+}
+
+/* ================= NAV ================= */
+nav{
+position:fixed;
+top:0;
+width:100%;
+display:flex;
+justify-content:space-between;
+padding:20px 60px;
+background:rgba(255,255,255,.7);
+backdrop-filter:blur(10px);
+}
+
+.logo{
+font-weight:700;
+color:var(--green);
+}
+
+/* ================= RECEIPT ================= */
+
+.container{
+max-width:900px;
+margin:120px auto;
+padding:20px;
+}
+
+.receipt{
+background:var(--glass);
+backdrop-filter:blur(18px);
+border-radius:var(--radius);
+padding:30px;
+box-shadow:0 20px 40px rgba(0,0,0,.1);
+}
+
+.header{
+text-align:center;
+margin-bottom:30px;
+}
+
+.header h1{
+color:var(--green);
+}
+
+.success{
+color:green;
+font-weight:600;
+}
+
+/* ================= TABLE ================= */
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+}
+
+th,td{
+padding:12px;
+text-align:center;
+}
+
+th{
+background:var(--green);
+color:white;
+}
+
+.total{
+font-size:20px;
+font-weight:700;
+margin-top:20px;
+text-align:right;
+}
+
+/* ================= BUTTON ================= */
+
+.btn{
+margin-top:20px;
+padding:12px 30px;
+background:var(--gold);
+border:none;
+border-radius:50px;
+cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+<div class="logo">Kabini AgroGlobal</div>
+</nav>
+
+<div class="container">
+
+<div class="receipt">
+
+<div class="header">
+<h1>Payment Successful</h1>
+<p class="success">Your order has been confirmed</p>
+</div>
+
+<h3>Order Details</h3>
+
+<table id="receiptTable">
+<tr>
+<th>Product</th>
+<th>Qty</th>
+<th>Price</th>
+</tr>
+</table>
+
+<div class="total" id="total">Total: ₦0</div>
+
+<button class="btn" onclick="goHome()">Back to Home</button>
+
+</div>
+
+</div>
+
+<script>
+
+/* ================= LOAD CART ================= */
+
+let cart = JSON.parse(localStorage.getItem("cart")) || []
+let table = document.getElementById("receiptTable")
+let total = 0
+
+cart.forEach(item=>{
+let row = document.createElement("tr")
+
+row.innerHTML = `
+<td>${item.name}</td>
+<td>${item.qty}</td>
+<td>₦${item.price * item.qty}</td>
+`
+
+table.appendChild(row)
+
+total += item.price * item.qty
+})
+
+document.getElementById("total").innerText = "Total: ₦" + total
+
+/* ================= SAVE ORDER ================= */
+
+let orders = JSON.parse(localStorage.getItem("orders")) || []
+
+orders.push({
+id: Date.now(),
+items: cart,
+total: total,
+date: new Date().toLocaleString(),
+status: "Processing"
+})
+
+localStorage.setItem("orders", JSON.stringify(orders))
+
+/* ================= CLEAR CART ================= */
+
+localStorage.removeItem("cart")
+
+/* ================= NAV ================= */
+
+function goHome(){
+window.location.href="index.html"
+}
+
+</script>
+
+</body>
+</html>
