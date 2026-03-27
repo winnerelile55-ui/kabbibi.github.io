@@ -179,12 +179,30 @@ animate();
 
 /* ================= FLASH SALE PRODUCTS ================= */
 const flashProducts=[
-{id:1,name:"Organic Rice",price:12000,img:"https://images.unsplash.com/photo-1586201375761-83865001e31c"},
-{id:2,name:"Fresh Apples",price:3500,img:"https://images.unsplash.com/photo-1567306226416-28f0efdc88ce"},
-{id:3,name:"Cows",price:7500,img:"NEXACORE CANVAS/tmp-1589792989118857216-6E9BT6.jpg"},
-{id:4,name:"Tomatoes",price:3000,img:"NEXACORE CANVAS/285d7a8f99671955dc581f66d5894490.jpg"},
-{id:5,name:"Goats",price:4000,img:"NEXACORE CANVAS/tmp-1589792989118857216-JF1KY8.jpg"},
-{id:6,name:"Eggs Pack",price:2500,img:"NEXACORE CANVAS/tmp-1589792989118857216-DFWW4g.jpg"},
+{id:1,name:"KABINI AGROGLOBAL",price:100000,cat:"grain",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/IMG-20260323-WA0001.jpg",sale:true},
+{id:2,name:"KABINI TABLE WATER",price:4000,cat:"fruit",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/IMG-20260323-WA0002.jpg",sale:true},
+{id:3,name:"KABINI GROUNDNUT OIL",price:20000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/IMG-20260325-WA0027.jpg",sale:false},
+{id:4,name:"KABINI ONLINE STORE",price:30000,cat:"fruit",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/IMG-20260325-WA0028.jpg",sale:true},
+{id:5,name:"CATTLES",price:2000000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/47b551b04a66cdd9039b46c01076b164.jpg",sale:true},
+{id:6,name:"GOATS",price:35000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/5b538c0521fb05c889c0239139e561da.jpg",sale:false},
+{id:7,name:"LAYERS",price:25000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/4d859011438527d70f5236717eff0cd0.jpg",sale:false},
+{id:8,name:"DUCKS",price:45000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/592b4baaa4532b786bb044b5c2289e02.jpg",sale:false},
+{id:10,name:"TURKEY",price:55000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/bffdd7f24d29a966b236b9ff331ea956.jpg",sale:false},
+{id:11,name:"EGGS",price:25000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/tmp-1589792989118857216-DFWW4g.jpg",sale:false},
+{id:12,name:"CHICKENS",price:25000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/tmp-1589792989118857216-mQ4lIS.jpg",sale:false},
+{id:13,name:"GREEN PEPPERS",price:2500,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/tmp-1589792989118857216-d26qn8.jpg",sale:false},
+{id:14,name:"TOMATOES",price:2500,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/da991bec2f403e754ec43b1e48aff126.jpg",sale:false},
+{id:15,name:"WATERMELON",price:65000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/da7b229dc72b77f139ee3f7219ac7631.jpg",sale:true},
+{id:16,name:"CHILLI PEPPERS",price:25000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/b11aded6377966870007d20459aaf852.jpg",sale:true},
+{id:17,name:"KABINI STOCKS",price:15000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/20251004_064027.jpg",sale:true},
+{id:18,name:"CABBAGE",price:2500,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/390ddfa479b70e4b4d333191d9085051.jpg",sale:true},
+{id:19,name:"KABBINI TOMATOES",price:2500,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/285d7a8f99671955dc581f66d5894490.jpg",sale:true},
+{id:20,name:"SPINACH",price:2500,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/094f8d65d82072790a46b4299c114a8b.jpg",sale:true},
+{id:21,name:"KABINI VEGETBALES",price:25000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/9ffb793fae61509a57c87404544741a6.jpg",sale:true},
+{id:22,name:"KABINI STOCKS",price:35000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/8c814da10ef8dcd65105c9ade7b091fa.jpg",sale:true},
+{id:23,name:"KABINI SALADS",price:25000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/5feed2ae3bd94816976793f280b0e1d3.jpg",sale:true},
+{id:24,name:"CARROTS",price:25000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/4fce9e4816de5eb6ac1d70f7c66951e2.jpg",sale:true},
+{id:25,name:"MAIZE",price:25000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/5ba800dfcb1e73387aa2c84b76eacbfd.jpg",sale:true},
 ];
 
 document.getElementById("productsCount").innerText=flashProducts.length;
