@@ -1,34 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Kabini AgroGlobal | Product Details</title>
+<title>Kabini Global | Product Details</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 
 /* ================= ROOT ================= */
 :root{
---green:#1F7A3A;
---dark-green:#145A2A;
---gold:#E8A317;
---bg:#F5F7F2;
---radius:20px;
+--green:#0f5f2f;
+--gold:#d4af37;
+--brown:#5c4033;
+--bg:#f7f5f0;
+--card:#ffffff;
+--radius:18px;
+--shadow:0 10px 30px rgba(0,0,0,0.08);
 }
 
+/* ================= GLOBAL ================= */
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:'Poppins',sans-serif;
+font-family:'Inter',sans-serif;
 }
 
 body{
 background:var(--bg);
+color:#222;
 }
 
 /* ================= NAV ================= */
@@ -38,261 +43,341 @@ top:0;
 width:100%;
 display:flex;
 justify-content:space-between;
-padding:20px 50px;
-background:rgba(255,255,255,.8);
+align-items:center;
+padding:14px 18px;
+background:rgba(15,95,47,0.95);
 backdrop-filter:blur(15px);
-z-index:100;
+color:#fff;
+z-index:1000;
 }
 
-.logo{
-font-weight:700;
-font-size:22px;
-color:var(--green);
+nav img{
+height:40px;
+border-radius:6px;
 }
 
-nav ul{
-display:flex;
-gap:25px;
-list-style:none;
-}
-
-nav a{
-text-decoration:none;
-color:#333;
+.back-btn{
+background:var(--gold);
+border:none;
+padding:8px 14px;
+border-radius:8px;
+font-weight:600;
+cursor:pointer;
 }
 
 /* ================= CONTAINER ================= */
 .container{
-max-width:1200px;
-margin:120px auto;
-padding:20px;
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:40px;
+margin-top:90px;
+padding:15px;
 }
 
-/* ================= IMAGE ================= */
-.image-box img{
-width:100%;
-border-radius:20px;
-box-shadow:0 10px 30px rgba(0,0,0,.1);
-}
-
-/* ================= DETAILS ================= */
-.details{
-background:white;
-padding:30px;
+/* ================= PRODUCT CARD ================= */
+.product-card{
+background:var(--card);
 border-radius:var(--radius);
-box-shadow:0 10px 30px rgba(0,0,0,.08);
+box-shadow:var(--shadow);
+overflow:hidden;
+max-width:500px;
+margin:auto;
+animation:fadeIn 0.6s ease;
 }
 
-.details h2{
+/* IMAGE */
+.product-image{
+width:100%;
+height:300px;
+object-fit:cover;
+}
+
+/* CONTENT */
+.product-content{
+padding:15px;
+}
+
+.product-title{
+font-size:22px;
+font-weight:700;
 margin-bottom:10px;
 }
 
 .price{
+font-size:20px;
 color:var(--green);
-font-size:24px;
-margin:10px 0;
+font-weight:700;
 }
 
-.desc{
-margin:20px 0;
-line-height:1.6;
+.old-price{
+text-decoration:line-through;
+opacity:0.5;
+margin-left:10px;
 }
 
-/* ================= TIMER ================= */
+/* TIMER */
 .timer{
-background:var(--gold);
-padding:10px;
-border-radius:10px;
-margin:15px 0;
+margin-top:10px;
+color:red;
 font-weight:600;
 }
 
-/* ================= QTY ================= */
-.qty{
+/* DESCRIPTION */
+.description{
+margin-top:15px;
+font-size:14px;
+line-height:1.6;
+color:#444;
+}
+
+/* ================= ACTIONS ================= */
+.actions{
+margin-top:20px;
 display:flex;
+flex-direction:column;
 gap:10px;
-margin:20px 0;
 }
 
-.qty button{
-width:40px;
-height:40px;
-border:none;
-background:var(--green);
-color:white;
-font-size:18px;
-border-radius:8px;
-cursor:pointer;
-}
-
-.qty input{
-width:60px;
-text-align:center;
-}
-
-/* ================= BUTTON ================= */
 .btn{
-width:100%;
-padding:15px;
+padding:14px;
 border:none;
-border-radius:30px;
-background:var(--green);
-color:white;
+border-radius:12px;
 font-weight:600;
 cursor:pointer;
+transition:0.3s;
 }
 
-.btn:hover{
-background:var(--dark-green);
+.add{
+background:var(--green);
+color:#fff;
 }
 
-/* ================= BACK ================= */
-.back{
-margin-bottom:20px;
-display:inline-block;
-color:var(--green);
-cursor:pointer;
+.buy{
+background:var(--gold);
+color:#000;
 }
 
-/* ================= MOBILE ================= */
-@media(max-width:900px){
-.container{
-grid-template-columns:1fr;
+.btn:active{
+transform:scale(0.97);
 }
+
+/* ================= EXTRA INFO ================= */
+.info-box{
+margin-top:20px;
+background:#fff;
+padding:15px;
+border-radius:12px;
+box-shadow:var(--shadow);
+}
+
+.info-box h4{
+margin-bottom:10px;
+}
+
+/* ================= RELATED ================= */
+.related{
+margin-top:30px;
+}
+
+.related h3{
+margin-bottom:10px;
+}
+
+.related-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+gap:10px;
+}
+
+.related-card{
+background:#fff;
+border-radius:12px;
+overflow:hidden;
+box-shadow:var(--shadow);
+}
+
+.related-card img{
+width:100%;
+height:100px;
+object-fit:cover;
+}
+
+.related-card p{
+padding:8px;
+font-size:13px;
+}
+
+/* ================= TOAST ================= */
+.toast{
+position:fixed;
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+background:var(--green);
+color:#fff;
+padding:12px 16px;
+border-radius:10px;
+opacity:0;
+transition:0.3s;
+}
+
+.toast.show{
+opacity:1;
+}
+
+/* ================= ANIMATION ================= */
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
 }
 
 </style>
+
 </head>
 
 <body>
 
+<!-- NAV -->
 <nav>
-<div class="logo">Kabini AgroGlobal</div>
-<ul>
-<li><a href="index.html">Home</a></li>
-<li><a href="products.html">Products</a></li>
-<li><a href="cart.html">Cart</a></li>
-<li><a href="checkout.html">Checkout</a></li>
-</ul>
+<img src="https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/IMG-20260323-WA0001.jpg">
+<button class="back-btn" onclick="goBack()">← Back</button>
 </nav>
 
+<!-- CONTENT -->
 <div class="container">
 
-<div class="image-box">
-<img id="productImg">
+<div class="product-card">
+
+<img id="img" class="product-image">
+
+<div class="product-content">
+
+<h1 class="product-title" id="name"></h1>
+
+<div>
+<span class="price" id="price"></span>
+<span class="old-price" id="old"></span>
 </div>
 
-<div class="details">
+<div class="timer" id="timer"></div>
 
-<span class="back" onclick="goBack()">← Back to Products</span>
-
-<h2 id="name"></h2>
-
-<p class="price" id="price"></p>
-
-<div class="timer" id="timer">Loading timer...</div>
-
-<p class="desc">
-Premium farm product sourced directly from trusted farmers. Fresh, organic, and delivered globally with top quality assurance.
+<p class="description" id="desc">
+This is a premium Kabini Global product sourced with the highest quality standards.
 </p>
 
-<div class="qty">
-<button onclick="changeQty(-1)">-</button>
-<input type="number" id="qty" value="1">
-<button onclick="changeQty(1)">+</button>
+<!-- ACTIONS -->
+<div class="actions">
+<button class="btn add" onclick="addToCart()">Add to Cart</button>
+<button class="btn buy" onclick="buyNow()">Buy Now</button>
 </div>
-
-<button class="btn" onclick="addToCart()">Add To Cart</button>
 
 </div>
 
 </div>
+
+<!-- INFO -->
+<div class="info-box">
+<h4>Product Information</h4>
+<p>
+✔ High quality guaranteed<br>
+✔ Fresh from trusted sources<br>
+✔ Secure packaging<br>
+✔ Fast delivery available<br>
+</p>
+</div>
+
+<!-- RELATED -->
+<div class="related">
+<h3>Related Products</h3>
+<div class="related-grid" id="related"></div>
+</div>
+
+</div>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
 
 <script>
 
-/* ================= PRODUCTS DATABASE ================= */
-const products=[
-{id:1,name:"KABINI AGROGLOBAL",price:100000,cat:"grain",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/IMG-20260323-WA0001.jpg",sale:true},
-{id:2,name:"KABINI TABLE WATER",price:4000,cat:"fruit",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/IMG-20260323-WA0002.jpg",sale:true},
-{id:3,name:"KABINI GROUNDNUT OIL",price:20000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/IMG-20260325-WA0027.jpg",sale:false},
-{id:4,name:"KABINI ONLINE STORE",price:30000,cat:"fruit",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/IMG-20260325-WA0028.jpg",sale:true},
-{id:5,name:"CATTLES",price:2000000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/47b551b04a66cdd9039b46c01076b164.jpg",sale:true},
-{id:6,name:"GOATS",price:35000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/5b538c0521fb05c889c0239139e561da.jpg",sale:false},
-{id:7,name:"LAYERS",price:25000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/4d859011438527d70f5236717eff0cd0.jpg",sale:false},
-{id:8,name:"DUCKS",price:45000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/592b4baaa4532b786bb044b5c2289e02.jpg",sale:false},
-{id:10,name:"TURKEY",price:55000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/bffdd7f24d29a966b236b9ff331ea956.jpg",sale:false},
-{id:11,name:"EGGS",price:25000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/tmp-1589792989118857216-DFWW4g.jpg",sale:false},
-{id:12,name:"CHICKENS",price:25000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/tmp-1589792989118857216-mQ4lIS.jpg",sale:false},
-{id:13,name:"GREEN PEPPERS",price:2500,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/tmp-1589792989118857216-d26qn8.jpg",sale:false},
-{id:14,name:"TOMATOES",price:2500,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/da991bec2f403e754ec43b1e48aff126.jpg",sale:false},
-{id:15,name:"WATERMELON",price:65000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/da7b229dc72b77f139ee3f7219ac7631.jpg",sale:true},
-{id:16,name:"CHILLI PEPPERS",price:25000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/b11aded6377966870007d20459aaf852.jpg",sale:true},
-{id:17,name:"KABINI STOCKS",price:15000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/20251004_064027.jpg",sale:true},
-{id:18,name:"CABBAGE",price:2500,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/390ddfa479b70e4b4d333191d9085051.jpg",sale:true},
-{id:19,name:"KABBINI TOMATOES",price:2500,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/285d7a8f99671955dc581f66d5894490.jpg",sale:true},
-{id:20,name:"SPINACH",price:2500,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/094f8d65d82072790a46b4299c114a8b.jpg",sale:true},
-{id:21,name:"KABINI VEGETBALES",price:25000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/9ffb793fae61509a57c87404544741a6.jpg",sale:true},
-{id:22,name:"KABINI STOCKS",price:35000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/8c814da10ef8dcd65105c9ade7b091fa.jpg",sale:true},
-{id:23,name:"KABINI SALADS",price:25000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/5feed2ae3bd94816976793f280b0e1d3.jpg",sale:true},
-{id:24,name:"CARROTS",price:25000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/4fce9e4816de5eb6ac1d70f7c66951e2.jpg",sale:true},
-{id:25,name:"MAIZE",price:25000,cat:"livestock",img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/5ba800dfcb1e73387aa2c84b76eacbfd.jpg",sale:true},
-]
+/* ================= GET PRODUCT ================= */
+let product = JSON.parse(localStorage.getItem("selectedProduct"))
 
-/* ================= LOAD PRODUCT ================= */
-let id=localStorage.getItem("selectedProduct")
-let product=products.find(p=>p.id==id)
+if(!product){
+document.body.innerHTML="<h2 style='text-align:center;margin-top:100px;'>No product selected</h2>"
+}
 
-document.getElementById("name").innerText=product.name
-document.getElementById("price").innerText="₦"+product.price
-document.getElementById("productImg").src=product.img
+document.getElementById("img").src = product.img
+document.getElementById("name").innerText = product.name
+document.getElementById("price").innerText = "₦" + product.price
+document.getElementById("old").innerText = "₦" + (product.price + 500)
 
 /* ================= TIMER ================= */
-let end=new Date().getTime()+86400000
+let timerValue = 86400
 
 setInterval(()=>{
-let now=new Date().getTime()
-let d=end-now
+if(timerValue>0){
+timerValue--
+let h=Math.floor(timerValue/3600)
+let m=Math.floor((timerValue%3600)/60)
+let s=timerValue%60
 
-let h=Math.floor(d/(1000*60*60))
-let m=Math.floor((d%(1000*60*60))/(1000*60))
-let s=Math.floor((d%(1000*60))/1000)
-
-document.getElementById("timer").innerText=`Flash Sale Ends In: ${h}h ${m}m ${s}s`
-},1000)
-
-/* ================= QTY ================= */
-function changeQty(val){
-let input=document.getElementById("qty")
-input.value=Math.max(1,parseInt(input.value)+val)
+document.getElementById("timer").innerText=
+`Offer ends in ${h}h ${m}m ${s}s`
 }
+},1000)
 
 /* ================= CART ================= */
 function addToCart(){
 
-let cart=JSON.parse(localStorage.getItem("cart"))||[]
+let cart = JSON.parse(localStorage.getItem("cart")) || []
 
-let qty=parseInt(document.getElementById("qty").value)
-
-let item=cart.find(i=>i.id==product.id)
-
-if(item) item.qty+=qty
-else cart.push({...product,qty:qty})
+cart.push({...product,qty:1})
 
 localStorage.setItem("cart",JSON.stringify(cart))
 
-alert(product.name+" added to cart")
+toast("Added to cart")
 
+}
+
+/* ================= BUY NOW ================= */
+function buyNow(){
+addToCart()
+window.location.href="checkout.html"
+}
+
+/* ================= TOAST ================= */
+function toast(msg){
+let t=document.getElementById("toast")
+t.innerText=msg
+t.classList.add("show")
+
+setTimeout(()=>t.classList.remove("show"),2000)
 }
 
 /* ================= BACK ================= */
 function goBack(){
-window.location.href="products.html"
+window.history.back()
 }
+
+/* ================= RELATED PRODUCTS ================= */
+const relatedData = [
+{img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/images/IMG-20260331-WA0014.jpg",name:"Related Product 1"},
+{img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/IMG-20260325-WA0027.jpg",name:"Related Product 2"},
+{img:"https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/images/IMG-20260331-WA0012(1).jpg",name:"Related Product 3"}
+]
+
+const related=document.getElementById("related")
+
+relatedData.forEach(p=>{
+related.innerHTML+=`
+<div class="related-card">
+<img src="${p.img}">
+<p>${p.name}</p>
+</div>
+`
+})
 
 </script>
 
 </body>
+<script src="app.js"></script>
 </html>
