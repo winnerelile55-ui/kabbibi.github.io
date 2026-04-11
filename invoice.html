@@ -3,196 +3,327 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kabini AgroGlobal | Invoice</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<title>Kabini Global | Invoice</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
+
 /* ================= ROOT ================= */
 :root{
---green:#1F7A3A;
---dark-green:#145A2A;
---gold:#E8A317;
---bg:#F5F7F2;
---glass:rgba(255,255,255,.18);
---glass-border:rgba(255,255,255,.3);
---radius:22px;
+--green:#0f5f2f;
+--brown:#5c4033;
+--gold:#d4af37;
+--bg:#fefcf8;
+--white:#fff;
 }
 
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-body{background:var(--bg);overflow-x:hidden;color:#333;}
+/* RESET */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+body{
+background:var(--bg);
+overflow-x:hidden;
+}
 
 /* ================= NAVBAR ================= */
 nav{
-position:fixed;top:0;width:100%;display:flex;justify-content:space-between;align-items:center;
-padding:20px 60px;background:rgba(255,255,255,.65);backdrop-filter:blur(18px);
-border-bottom:1px solid rgba(0,0,0,.05);z-index:100;
+position:fixed;
+top:0;
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+background:rgba(15,95,47,0.9);
+backdrop-filter:blur(12px);
+z-index:1000;
+color:#fff;
 }
-.logo{font-size:24px;font-weight:700;color:var(--green);}
-nav ul{display:flex;gap:30px;list-style:none;}
-nav a{text-decoration:none;color:#333;font-weight:500;transition:.3s;}
-nav a:hover{color:var(--green);}
+
+.logo{
+font-weight:700;
+}
+
+nav ul{
+display:flex;
+gap:20px;
+list-style:none;
+}
+
+nav a{
+color:#fff;
+text-decoration:none;
+font-weight:600;
+}
+
+/* ================= HAMBURGER ================= */
+.menu-btn{
+display:none;
+flex-direction:column;
+cursor:pointer;
+}
+
+.menu-btn span{
+width:25px;
+height:3px;
+background:#fff;
+margin:4px;
+}
+
+/* MOBILE MENU */
+@media(max-width:768px){
+
+.menu-btn{display:flex;}
+
+nav ul{
+position:fixed;
+top:0;
+right:-100%;
+width:80%;
+height:100vh;
+background:rgba(255,255,255,0.2);
+backdrop-filter:blur(20px);
+flex-direction:column;
+padding:80px 20px;
+transition:.5s;
+}
+
+nav ul.active{
+right:0;
+}
+
+nav ul li{
+background:#fff;
+padding:15px;
+border-radius:10px;
+}
+
+nav ul li a{
+color:#000;
+}
+}
 
 /* ================= HERO ================= */
 .hero{
-min-height:40vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
-padding:120px 20px;background:linear-gradient(rgba(31,122,58,.75),rgba(20,90,42,.75)),
-url("https://images.unsplash.com/photo-1581091215366-0e2b430546f0");
-background-size:cover;color:white;
+height:40vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+color:#fff;
+background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
+url('https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/IMG-20260323-WA0001.jpg') center/cover;
 }
-.hero h1{font-size:3rem;background:linear-gradient(90deg,#fff,#E8A317);
--webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:floatText 6s ease-in-out infinite;}
-@keyframes floatText{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-.hero p{max-width:650px;margin-top:20px;}
 
-/* ================= INVOICE SECTION ================= */
-.invoice-section{
-max-width:1200px;margin:100px auto;padding:0 20px;
-background:white;border-radius:var(--radius);box-shadow:0 20px 50px rgba(0,0,0,.08);
+.hero h1{
+font-size:2.5rem;
 }
-.invoice-header{padding:40px;border-bottom:1px solid #ddd;text-align:center;}
-.invoice-header h2{color:var(--green);font-size:2.5rem;}
-.invoice-header p{margin-top:10px;color:#555;font-weight:500;}
-.invoice-details{display:flex;justify-content:space-between;padding:30px 40px;border-bottom:1px solid #ddd;flex-wrap:wrap;}
-.invoice-details div{margin:10px 0;}
-.invoice-details h4{font-weight:600;color:#333;}
-.invoice-details p{color:#555;}
-.invoice-table{width:100%;border-collapse:collapse;margin:40px 0;}
-.invoice-table th, .invoice-table td{padding:15px;text-align:left;border-bottom:1px solid #ddd;}
-.invoice-table th{background:var(--green);color:white;border-radius:6px;}
-.invoice-table td{text-transform:capitalize;}
-.invoice-total{text-align:right;padding:20px 40px;font-size:1.3rem;font-weight:600;color:var(--gold);}
-.invoice-btn{text-align:center;margin-bottom:50px;}
-.invoice-btn button{padding:14px 40px;border:none;border-radius:50px;background:var(--green);color:white;font-weight:600;cursor:pointer;transition:.3s;}
-.invoice-btn button:hover{transform:translateY(-3px);}
 
-/* ================= FOOTER ================= */
-footer{background:#111;color:white;padding:60px 40px;}
-.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;}
-footer p{opacity:.7;}
-
-/* ================= MOBILE ================= */
-@media(max-width:900px){
-.hero h1{font-size:2rem;}
-.invoice-details{flex-direction:column;}
+/* ================= INVOICE ================= */
+.invoice{
+max-width:1000px;
+margin:100px auto;
+background:#fff;
+border-radius:15px;
+box-shadow:0 10px 40px rgba(0,0,0,0.1);
+overflow:hidden;
 }
+
+.invoice-header{
+padding:30px;
+border-bottom:1px solid #ddd;
+text-align:center;
+}
+
+.invoice-header h2{
+color:var(--green);
+}
+
+.invoice-table{
+width:100%;
+border-collapse:collapse;
+}
+
+.invoice-table th,
+.invoice-table td{
+padding:15px;
+border-bottom:1px solid #eee;
+text-align:left;
+}
+
+.invoice-table th{
+background:var(--green);
+color:#fff;
+}
+
+.total{
+text-align:right;
+padding:20px;
+font-size:1.3rem;
+font-weight:700;
+color:var(--gold);
+}
+
+/* BUTTON */
+.checkout-btn{
+display:block;
+margin:20px auto;
+padding:15px 30px;
+background:var(--green);
+color:#fff;
+border:none;
+border-radius:10px;
+cursor:pointer;
+font-weight:600;
+}
+
+/* OVERLAY */
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.4);
+display:none;
+}
+
+.overlay.active{
+display:block;
+}
+
 </style>
 </head>
+
 <body>
 
+<!-- NAV -->
 <nav>
-<div class="logo">Kabini AgroGlobal</div>
-<ul>
+
+<div class="logo">KABINI LTD</div>
+
+<ul id="menu">
 <li><a href="index.html">Home</a></li>
-<li><a href="products.html">Products</a></li>
-<li><a href="about.html">About</a></li>
-<li><a href="admin.html">Admin</a></li>
+<li><a href="product.html">Products</a></li>
 <li><a href="cart.html">Cart</a></li>
 <li><a href="checkout.html">Checkout</a></li>
-<li><a href="flashsales.html">Flash Sales</a></li>
 <li><a href="invoice.html">Invoice</a></li>
-<li><a href="receipt.html">Receipt</a></li>
+<li><a href="order.html">Orders</a></li>
 </ul>
+
+<div class="menu-btn" id="menuBtn">
+<span></span><span></span><span></span>
+</div>
+
 </nav>
 
+<div class="overlay" id="overlay"></div>
+
+<!-- HERO -->
 <section class="hero">
 <h1>Invoice</h1>
-<p>View your purchase details and track your order</p>
+<p>Review your order before payment</p>
 </section>
 
-<section class="invoice-section">
-<div class="invoice-header">
-<h2>Invoice #<span id="invoiceNumber">INV123456</span></h2>
-<p>Date: <span id="invoiceDate"></span></p>
-</div>
+<!-- INVOICE -->
+<div class="invoice">
 
-<div class="invoice-details">
-<div>
-<h4>Bill To:</h4>
-<p id="billTo">John Doe</p>
-<p id="billEmail">johndoe@example.com</p>
-</div>
-<div>
-<h4>Ship To:</h4>
-<p id="shipTo">John Doe</p>
-<p id="shipAddress">123 Farm Lane, Abuja, Nigeria</p>
-</div>
-<div>
-<h4>Payment Method:</h4>
-<p id="paymentMethod">Credit Card</p>
-</div>
+<div class="invoice-header">
+<h2>Order Summary</h2>
+<p id="date"></p>
 </div>
 
 <table class="invoice-table">
 <thead>
 <tr>
 <th>Product</th>
-<th>Quantity</th>
-<th>Unit Price</th>
+<th>Qty</th>
+<th>Price</th>
 <th>Total</th>
 </tr>
 </thead>
-<tbody id="invoiceProducts">
-<!-- Products will be dynamically inserted here -->
-</tbody>
+
+<tbody id="items"></tbody>
+
 </table>
 
-<div class="invoice-total">
-Total: ₦<span id="invoiceTotal">0</span>
+<div class="total">
+Total: ₦<span id="total">0</span>
 </div>
 
-<div class="invoice-btn">
-<button onclick="window.print()">Print Invoice</button>
-</div>
-</section>
+<button class="checkout-btn" onclick="checkout()">Pay via WhatsApp</button>
 
-<footer>
-<div class="footer-grid">
-<div>
-<h3>Kabini AgroGlobal</h3>
-<p>Global agriculture marketplace.</p>
 </div>
-<div>
-<h4>Marketplace</h4>
-<p>Products</p>
-<p>Farmers</p>
-<p>Flash Sales</p>
-</div>
-<div>
-<h4>Company</h4>
-<p>About</p>
-<p>Careers</p>
-</div>
-<div>
-<h4>Support</h4>
-<p>Help Center</p>
-<p>Shipping</p>
-</div>
-</div>
-</footer>
 
 <script>
-/* ================= INVOICE DYNAMIC DATA ================= */
-document.getElementById("invoiceDate").innerText = new Date().toLocaleDateString();
 
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-const invoiceProducts = document.getElementById("invoiceProducts");
-let total = 0;
+/* MENU */
+const menu=document.getElementById("menu");
+const btn=document.getElementById("menuBtn");
+const overlay=document.getElementById("overlay");
 
-cart.forEach(item => {
-    let lineTotal = item.price * item.qty;
-    total += lineTotal;
-    invoiceProducts.innerHTML += `
-        <tr>
-            <td>${item.name}</td>
-            <td>${item.qty}</td>
-            <td>₦${item.price}</td>
-            <td>₦${lineTotal}</td>
-        </tr>
-    `;
+btn.onclick=()=>{
+menu.classList.toggle("active");
+overlay.classList.toggle("active");
+};
+
+/* DATE */
+document.getElementById("date").innerText=new Date().toDateString();
+
+/* CART */
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+let container=document.getElementById("items");
+let total=0;
+
+cart.forEach(item=>{
+let sum=item.price*item.qty;
+total+=sum;
+
+container.innerHTML+=`
+<tr>
+<td>${item.name}</td>
+<td>${item.qty}</td>
+<td>₦${item.price}</td>
+<td>₦${sum}</td>
+</tr>
+`;
 });
 
-document.getElementById("invoiceTotal").innerText = total;
+document.getElementById("total").innerText=total;
+
+/* WHATSAPP CHECKOUT */
+function checkout(){
+
+let message="🛒 Order from Kabini Global\n\n";
+
+cart.forEach(i=>{
+message+=`${i.name} x${i.qty} - ₦${i.price}\n`;
+});
+
+let total=cart.reduce((a,b)=>a+(b.price*b.qty),0);
+
+message+=`\nTOTAL: ₦${total}`;
+
+let phone="2348107808968";
+
+let url=`https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+localStorage.removeItem("cart");
+
+window.open(url,"_blank");
+}
+
 </script>
 
 </body>
+<script src="app.js"></script>
 </html>
