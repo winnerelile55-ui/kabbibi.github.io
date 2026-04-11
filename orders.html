@@ -3,222 +3,318 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kabini AgroGlobal | Orders</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>Kabini Global | Orders</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <style>
-/* ================= ROOT ================= */
 :root{
---green:#1F7A3A;
---dark-green:#145A2A;
---gold:#E8A317;
---bg:#F5F7F2;
---glass:rgba(255,255,255,.18);
---glass-border:rgba(255,255,255,.3);
---radius:22px;
---card-shadow:0 15px 40px rgba(0,0,0,.08);
+--deep-green:#0f5f2f;
+--gold:#d4af37;
+--bg:#fefcf8;
+--white:#fff;
+--transition:all .4s ease;
 }
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-body{background:var(--bg);overflow-x:hidden;color:#333;}
 
-/* ================= PARTICLES ================= */
-canvas{position:fixed;top:0;left:0;z-index:-1;opacity:.25;}
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+body{background:var(--bg);}
 
-/* ================= NAVBAR ================= */
-nav{position:fixed;top:0;width:100%;display:flex;justify-content:space-between;align-items:center;padding:20px 60px;background:rgba(255,255,255,.65);backdrop-filter:blur(18px);border-bottom:1px solid rgba(0,0,0,.05);z-index:100;}
-.logo{font-size:24px;font-weight:700;color:var(--green);}
-nav ul{display:flex;gap:30px;list-style:none;}
-nav a{text-decoration:none;color:#333;font-weight:500;transition:.3s;}
-nav a:hover{color:var(--green);}
-
-/* ================= HERO ================= */
-.hero{
-min-height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
-padding:100px 20px;
-background:linear-gradient(rgba(31,122,58,.75),rgba(20,90,42,.75)),url("https://images.unsplash.com/photo-1500937386664-56d1dfef3854");
-background-size:cover;color:white;
+/* NAV */
+nav{
+position:fixed;
+width:100%;
+top:0;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 25px;
+background:rgba(15,95,47,.95);
+z-index:1000;
 }
-.hero h1{font-size:3.5rem;background:linear-gradient(90deg,#fff,#E8A317);-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:floatText 6s ease-in-out infinite;}
-@keyframes floatText{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-.hero p{max-width:650px;margin-top:20px;font-size:1.1rem;}
 
-/* ================= ORDER DASHBOARD ================= */
-.orders-container{max-width:1200px;margin:80px auto;padding:0 20px;}
-.orders-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px;}
-.orders-header h2{font-size:2.2rem;color:var(--green);}
-.orders-header .btn{padding:12px 30px;background:var(--gold);border:none;border-radius:50px;color:white;cursor:pointer;transition:.3s;}
-.orders-header .btn:hover{transform:translateY(-3px);}
+.logo-container{
+display:flex;
+align-items:center;
+gap:10px;
+color:#fff;
+font-weight:600;
+}
 
-/* ================= ORDERS TABLE ================= */
-.orders-table{width:100%;border-collapse:collapse;background:var(--glass);backdrop-filter:blur(18px);border:1px solid var(--glass-border);border-radius:var(--radius);overflow:hidden;}
-.orders-table th, .orders-table td{padding:20px;text-align:center;font-weight:500;}
-.orders-table th{background:var(--green);color:white;}
-.orders-table tr{transition:.3s;}
-.orders-table tr:hover{background:rgba(31,122,58,.05);}
+.logo-container img{height:40px;}
 
-/* ================= ORDER CARDS (MOBILE) ================= */
-.order-card{display:none;background:var(--glass);backdrop-filter:blur(18px);border-radius:var(--radius);padding:20px;margin-bottom:20px;box-shadow:var(--card-shadow);}
-.order-card h3{color:var(--green);margin-bottom:10px;}
-.order-card p{margin:6px 0;font-weight:500;}
+nav ul{
+display:flex;
+gap:20px;
+list-style:none;
+}
 
-/* ================= FOOTER ================= */
-footer{background:#111;color:white;padding:60px 40px;}
-.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;}
-footer p{opacity:.7;}
+nav a{
+color:#fff;
+text-decoration:none;
+font-weight:600;
+}
 
-/* ================= MOBILE ================= */
-@media(max-width:900px){
-.hero h1{font-size:2.5rem;}
-nav{padding:20px;}
-.orders-table{display:none;}
-.order-card{display:block;}
+/* HAMBURGER */
+.menu-toggle{
+display:none;
+flex-direction:column;
+cursor:pointer;
+z-index:1001;
+}
+.menu-toggle div{
+width:25px;height:3px;background:#fff;margin:4px;
+}
+
+/* OVERLAY */
+.overlay{
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,0.6);
+opacity:0;
+pointer-events:none;
+transition:.3s;
+}
+
+.overlay.active{
+opacity:1;
+pointer-events:auto;
+}
+
+/* MOBILE NAV */
+@media(max-width:768px){
+nav ul{
+position:fixed;
+top:0;
+right:-100%;
+height:100%;
+width:270px;
+flex-direction:column;
+background:rgba(255,255,255,0.15);
+backdrop-filter:blur(20px);
+padding:80px 20px;
+transition:.4s;
+}
+
+nav ul.active{right:0;}
+
+nav ul li{
+background:#fff;
+padding:12px;
+border-radius:10px;
+margin-bottom:10px;
+}
+
+nav ul li a{color:#000;}
+
+.menu-toggle{display:flex;}
+}
+
+/* MAIN */
+.container{
+margin-top:100px;
+padding:30px;
+max-width:1100px;
+margin-left:auto;
+margin-right:auto;
+}
+
+/* CARD */
+.card{
+background:#fff;
+padding:25px;
+border-radius:15px;
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+margin-bottom:20px;
+}
+
+/* ORDER LIST */
+.item{
+display:flex;
+justify-content:space-between;
+margin-bottom:10px;
+}
+
+/* TOTAL */
+.total{
+font-size:20px;
+font-weight:700;
+color:var(--deep-green);
+margin-top:20px;
+}
+
+/* BUTTON */
+.btn{
+margin-top:20px;
+padding:14px;
+border:none;
+width:100%;
+border-radius:10px;
+background:var(--deep-green);
+color:#fff;
+font-weight:600;
+cursor:pointer;
+transition:.3s;
+}
+
+.btn:hover{background:#0b4723;}
+
+.clear-btn{
+background:red;
+margin-top:10px;
+}
+
+/* EMPTY */
+.empty{
+text-align:center;
+padding:40px;
+color:#777;
+}
+
+/* FOOTER */
+footer{
+background:var(--deep-green);
+color:#fff;
+text-align:center;
+padding:30px;
+margin-top:40px;
 }
 </style>
 </head>
+
 <body>
 
-<canvas id="particles"></canvas>
+<!-- OVERLAY -->
+<div class="overlay"></div>
 
+<!-- NAV -->
 <nav>
-<div class="logo">Kabini AgroGlobal</div>
+<div class="logo-container">
+<img src="https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/IMG-20260323-WA0001.jpg">
+<span>KABINI LTD</span>
+</div>
+
 <ul>
 <li><a href="index.html">Home</a></li>
-<li><a href="products.html">Products</a></li>
-<li><a href="about.html">About</a></li>
-<li><a href="admin.html">Admin</a></li>
+<li><a href="product.html">Products</a></li>
 <li><a href="cart.html">Cart</a></li>
+<li><a href="order.html">Orders</a></li>
 <li><a href="checkout.html">Checkout</a></li>
-<li><a href="flashsales.html">Flash Sales</a></li>
-<li><a href="invoice.html">Invoice</a></li>
 <li><a href="receipt.html">Receipt</a></li>
-<li><a href="orders.html">Orders</a></li>
 </ul>
+
+<div class="menu-toggle">
+<div></div><div></div><div></div>
+</div>
 </nav>
 
-<section class="hero">
-<h1>Your Orders Dashboard</h1>
-<p>Track your orders, check statuses, and manage your purchases seamlessly.</p>
-</section>
+<!-- MAIN -->
+<div class="container">
 
-<div class="orders-container">
-<div class="orders-header">
-<h2>Recent Orders</h2>
-<button class="btn" onclick="refreshOrders()">Refresh Orders</button>
+<div class="card">
+<h2>🧾 Order Summary</h2>
+
+<div id="orderList"></div>
+
+<div class="total" id="total">Total: ₦0</div>
+
+<button class="btn" onclick="sendWhatsApp()">Send Order via WhatsApp</button>
+<button class="btn clear-btn" onclick="clearCart()">Clear Order</button>
 </div>
 
-<table class="orders-table" id="ordersTable">
-<thead>
-<tr>
-<th>Order ID</th>
-<th>Product</th>
-<th>Quantity</th>
-<th>Price</th>
-<th>Status</th>
-<th>Date</th>
-</tr>
-</thead>
-<tbody>
-<!-- Orders will be injected here -->
-</tbody>
-</table>
-
-<div id="mobileOrders">
-<!-- Order cards for mobile view -->
-</div>
 </div>
 
+<!-- FOOTER -->
 <footer>
-<div class="footer-grid">
-<div>
-<h3>Kabini AgroGlobal</h3>
-<p>Global agriculture marketplace.</p>
-</div>
-<div>
-<h4>Marketplace</h4>
-<p>Products</p>
-<p>Farmers</p>
-<p>Flash Sales</p>
-</div>
-<div>
-<h4>Company</h4>
-<p>About</p>
-<p>Careers</p>
-</div>
-<div>
-<h4>Support</h4>
-<p>Help Center</p>
-<p>Shipping</p>
-</div>
-</div>
+<p>© 2026 Kabini LTD</p>
 </footer>
 
 <script>
-/* ================= PARTICLES ================= */
-const canvas=document.getElementById("particles")
-const ctx=canvas.getContext("2d")
-canvas.width=innerWidth
-canvas.height=innerHeight
-let particles=[]
-for(let i=0;i<80;i++){
-particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2,vx:Math.random()-.5,vy:Math.random()-.5})
-}
-function animate(){
-ctx.clearRect(0,0,canvas.width,canvas.height)
-particles.forEach(p=>{
-p.x+=p.vx
-p.y+=p.vy
-ctx.beginPath()
-ctx.arc(p.x,p.y,p.r,0,Math.PI*2)
-ctx.fillStyle="rgba(31,122,58,.5)"
-ctx.fill()
-})
-requestAnimationFrame(animate)
-}
-animate()
 
-/* ================= ORDERS DATA ================= */
-let orders=[
-{id:1001,product:"Organic Rice",qty:2,price:30000,status:"Shipped",date:"2026-03-18"},
-{id:1002,product:"Broilers",qty:5,price:20000,status:"Processing",date:"2026-03-17"},
-{id:1003,product:"Fresh Tomatoes",qty:10,price:40000,status:"Delivered",date:"2026-03-16"},
-{id:1004,product:"Goats",qty:3,price:24000,status:"Processing",date:"2026-03-15"},
-{id:1005,product:"Eggs",qty:12,price:4800,status:"Cancelled",date:"2026-03-14"},
-]
+/* NAV TOGGLE */
+const toggle=document.querySelector('.menu-toggle');
+const nav=document.querySelector('nav ul');
+const overlay=document.querySelector('.overlay');
 
-// Render orders for desktop table
-function renderOrders(){
-const tableBody=document.querySelector("#ordersTable tbody")
-tableBody.innerHTML=""
-const mobileOrders=document.getElementById("mobileOrders")
-mobileOrders.innerHTML=""
-orders.forEach(o=>{
-// Desktop
-tableBody.innerHTML+=`<tr>
-<td>${o.id}</td>
-<td>${o.product}</td>
-<td>${o.qty}</td>
-<td>₦${o.price}</td>
-<td>${o.status}</td>
-<td>${o.date}</td>
-</tr>`
-// Mobile card
-mobileOrders.innerHTML+=`<div class="order-card">
-<h3>Order #${o.id}</h3>
-<p><strong>Product:</strong> ${o.product}</p>
-<p><strong>Quantity:</strong> ${o.qty}</p>
-<p><strong>Price:</strong> ₦${o.price}</p>
-<p><strong>Status:</strong> ${o.status}</p>
-<p><strong>Date:</strong> ${o.date}</p>
-</div>`
-})
+toggle.onclick=()=>{
+nav.classList.toggle('active');
+overlay.classList.toggle('active');
 }
 
-renderOrders()
-
-function refreshOrders(){
-alert("Orders refreshed!")
-renderOrders()
+overlay.onclick=()=>{
+nav.classList.remove('active');
+overlay.classList.remove('active');
 }
+
+/* LOAD CART */
+let cart=JSON.parse(localStorage.getItem("cart")) || [];
+
+const list=document.getElementById("orderList");
+const totalEl=document.getElementById("total");
+
+function render(){
+list.innerHTML="";
+let total=0;
+
+if(cart.length===0){
+list.innerHTML="<div class='empty'>No orders yet</div>";
+totalEl.innerText="Total: ₦0";
+return;
+}
+
+cart.forEach(item=>{
+total+=item.price*item.qty;
+
+list.innerHTML+=`
+<div class="item">
+<span>${item.name} x${item.qty}</span>
+<span>₦${item.price*item.qty}</span>
+</div>
+`;
+});
+
+totalEl.innerText="Total: ₦"+total;
+}
+
+render();
+
+/* WHATSAPP ORDER */
+function sendWhatsApp(){
+if(cart.length===0){
+alert("No items in cart");
+return;
+}
+
+let message="🛒 *KABINI GLOBAL ORDER*%0A%0A";
+
+let total=0;
+
+cart.forEach(item=>{
+message+=`${item.name} x${item.qty} = ₦${item.price*item.qty}%0A`;
+total+=item.price*item.qty;
+});
+
+message+=`%0A*Total: ₦${total}*`;
+
+window.open(`https://wa.me/2348107808968?text=${message}`,"_blank");
+
+/* CLEAR AFTER ORDER */
+localStorage.removeItem("cart");
+cart=[];
+render();
+}
+
+/* CLEAR */
+function clearCart(){
+localStorage.removeItem("cart");
+cart=[];
+render();
+}
+
 </script>
-<script src="shippingCalculator.js"></script>
+
 </body>
+<script src="app.js"></script>
 </html>
