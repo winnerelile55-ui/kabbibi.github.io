@@ -1,0 +1,939 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>NexaCore Ultra X Enterprise Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--cyan:#00e5ff;
+--green:#00ffb2;
+--purple:#8b5dff;
+--gold:#ffd447;
+--silver:#dce3ec;
+--bg:#020617;
+--panel:#0f172a;
+--panel2:#111c32;
+--text:#ffffff;
+--muted:#94a3b8;
+--glass:rgba(255,255,255,.06);
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+background:
+radial-gradient(circle at top right,rgba(0,224,255,.14),transparent 35%),
+radial-gradient(circle at left,rgba(139,93,255,.15),transparent 30%),
+linear-gradient(to bottom,#020617,#081225,#020617);
+color:white;
+overflow-x:hidden;
+}
+
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+section{padding:100px 6%;}
+
+/* top ribbon */
+.topbar{
+padding:14px;
+text-align:center;
+font-weight:700;
+background:linear-gradient(90deg,var(--cyan),var(--purple));
+}
+
+/* nav */
+nav{
+position:fixed;
+width:100%;
+top:0;
+z-index:9999;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 6%;
+background:rgba(2,6,23,.88);
+backdrop-filter:blur(30px);
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:12px;
+font-weight:900;
+font-size:24px;
+}
+
+.logo img{
+height:56px;
+border-radius:14px;
+}
+
+.desktop-nav{
+display:flex;
+gap:24px;
+list-style:none;
+font-weight:700;
+}
+
+.desktop-nav a:hover{
+color:var(--cyan)
+}
+
+.cta{
+padding:12px 24px;
+border-radius:40px;
+background:linear-gradient(90deg,var(--cyan),var(--green));
+color:#000;
+font-weight:800;
+}
+
+/* hamburger */
+.menu-toggle{
+display:none;
+flex-direction:column;
+gap:6px;
+cursor:pointer;
+}
+
+.menu-toggle span{
+width:32px;
+height:3px;
+border-radius:20px;
+background:linear-gradient(90deg,var(--cyan),var(--green),var(--purple));
+transition:.3s;
+}
+
+.mobile-menu{
+position:fixed;
+right:-100%;
+top:82px;
+width:330px;
+height:100vh;
+padding:25px;
+background:#fff;
+transition:.45s;
+overflow-y:auto;
+z-index:9998;
+box-shadow:-20px 0 60px rgba(0,0,0,.45);
+}
+
+.mobile-menu.active{right:0;}
+
+.mobile-title{
+background:linear-gradient(90deg,var(--cyan),var(--purple));
+padding:16px;
+color:white;
+border-radius:18px;
+font-weight:900;
+text-align:center;
+margin-bottom:18px;
+}
+
+.menu-box{
+background:white;
+margin-bottom:14px;
+padding:18px;
+border-radius:18px;
+border:2px solid #eef2f7;
+box-shadow:0 8px 30px rgba(0,0,0,.08);
+}
+
+.menu-box a{
+font-size:14px;
+font-weight:900;
+text-transform:uppercase;
+background:linear-gradient(90deg,#00e5ff,#00ffb2,#8b5dff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.menu-box small{
+display:block;
+margin-top:6px;
+color:#64748b;
+font-weight:600;
+}
+
+/* hero */
+.hero{
+min-height:100vh;
+padding-top:160px;
+background:
+linear-gradient(rgba(2,6,23,.45),rgba(2,6,23,.7)),
+url('https://images.unsplash.com/photo-1451187580459-43490279c0fa') center/cover;
+}
+
+.hero-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
+gap:60px;
+align-items:center;
+}
+
+.hero h1{
+font-size:76px;
+line-height:1.05;
+margin-bottom:22px;
+}
+
+.gradient{
+background:linear-gradient(90deg,var(--cyan),var(--green),var(--purple));
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.hero p{
+font-size:20px;
+color:#d4dbe5;
+margin-bottom:30px;
+}
+
+.hero-buttons{
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+}
+
+.btn{
+padding:15px 32px;
+border:none;
+border-radius:40px;
+font-weight:800;
+cursor:pointer;
+}
+
+.primary{background:linear-gradient(90deg,var(--cyan),var(--green));}
+.secondary{
+background:transparent;
+color:#fff;
+border:1px solid rgba(255,255,255,.2);
+}
+
+.hero-card{
+background:var(--glass);
+padding:35px;
+border-radius:30px;
+border:1px solid rgba(255,255,255,.07);
+box-shadow:0 30px 90px rgba(0,0,0,.35);
+}
+
+.metric{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:18px;
+margin-top:25px;
+}
+
+.metric div{
+padding:20px;
+background:rgba(255,255,255,.05);
+border-radius:18px;
+}
+
+.metric h3{
+font-size:34px;
+color:var(--cyan);
+}
+
+/* universal cards */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:28px;
+margin-top:45px;
+}
+
+.card,.product-card,.price-box,.dashboard-card,.blog-card,.quote{
+background:var(--glass);
+padding:30px;
+border-radius:28px;
+border:1px solid rgba(255,255,255,.06);
+}
+
+.card:hover,.product-card:hover{
+transform:translateY(-10px);
+transition:.35s;
+}
+
+.product-card img{
+height:230px;
+width:100%;
+object-fit:cover;
+border-radius:18px;
+margin-bottom:18px;
+}
+
+.price{
+font-size:30px;
+font-weight:900;
+color:var(--green);
+margin:14px 0;
+}
+
+/* partners */
+.partners{
+background:#071224;
+text-align:center;
+}
+
+.logo-row{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:26px;
+margin-top:45px;
+}
+
+.partner{
+padding:28px;
+border-radius:22px;
+background:var(--glass);
+}
+
+.partner img{height:34px;margin:auto;}
+
+.address-banner{
+padding:32px;
+text-align:center;
+font-size:24px;
+font-weight:800;
+background:linear-gradient(90deg,#111827,#0f172a);
+}
+
+.badges{
+display:flex;
+flex-wrap:wrap;
+gap:16px;
+justify-content:center;
+margin-top:30px;
+}
+
+.badge{
+padding:14px 24px;
+border-radius:40px;
+font-weight:800;
+}
+
+.silver{
+background:linear-gradient(135deg,#d7dde6,#f8fafc);
+color:#000;
+}
+
+.gold{
+background:linear-gradient(135deg,#ffd700,#ffb800);
+color:#000;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+gap:24px;
+}
+
+.stat{
+background:var(--glass);
+padding:35px;
+border-radius:22px;
+}
+
+.stat h3{
+font-size:44px;
+color:var(--cyan);
+}
+
+.dashboard-card h3{
+margin-bottom:10px;
+}
+
+.progress{
+height:12px;
+border-radius:20px;
+background:#1e293b;
+margin-top:12px;
+overflow:hidden;
+}
+
+.progress span{
+display:block;
+height:100%;
+background:linear-gradient(90deg,var(--cyan),var(--green));
+}
+
+.ai-assistant-box{
+max-width:900px;
+margin:auto;
+padding:50px;
+background:#111827;
+border-radius:32px;
+}
+
+.ai-assistant-box input{
+width:100%;
+padding:18px;
+margin-top:18px;
+border:none;
+border-radius:14px;
+}
+
+.newsletter{
+text-align:center;
+}
+
+.newsletter-box{
+max-width:750px;
+margin:auto;
+padding:50px;
+background:#111827;
+border-radius:30px;
+}
+
+.newsletter input{
+width:100%;
+padding:18px;
+margin:16px 0;
+border:none;
+border-radius:14px;
+}
+
+.faq-item{
+padding:24px;
+border-radius:22px;
+background:var(--glass);
+margin-bottom:18px;
+}
+
+footer{
+background:#01040d;
+padding:100px 6% 40px;
+}
+
+.footer-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:40px;
+margin-bottom:45px;
+}
+
+.footer-box a{
+display:block;
+margin-bottom:10px;
+color:var(--muted);
+}
+
+.copyright{
+padding-top:30px;
+text-align:center;
+border-top:1px solid rgba(255,255,255,.08);
+}
+
+.ai-float{
+position:fixed;
+right:20px;
+bottom:20px;
+padding:16px 22px;
+border-radius:50px;
+font-weight:800;
+background:linear-gradient(90deg,var(--cyan),var(--purple));
+box-shadow:0 12px 35px rgba(0,0,0,.4);
+z-index:9999;
+}
+
+@media(max-width:950px){
+.desktop-nav{display:none;}
+.menu-toggle{display:flex;}
+.hero h1{font-size:48px;}
+section{padding:75px 5%;}
+}
+
+@media(max-width:600px){
+.hero h1{font-size:36px;}
+.metric{grid-template-columns:1fr;}
+.mobile-menu{width:100%;}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+🚀 NexaCore Global Ventures Ltd | Bannex Plaza Shop F4 | AI • Cloud • Commerce • Solar
+</div>
+
+<nav>
+<div class="logo">
+<img src="https://raw.githubusercontent.com/winnerelile55-ui/KABINI-GLOBAL-FARMS/refs/heads/main/IMG-20260323-WA0001.jpg">
+NexaCore
+</div>
+
+<ul class="desktop-nav">
+<li><a href="#">Home</a></li>
+<li><a href="#services">Services</a></li>
+<li><a href="product.html">Products</a></li>
+<li><a href="#dashboard">Dashboard</a></li>
+<li><a href="#contact">Contact</a></li>
+<li><a class="cta" href="#">Start Now</a></li>
+</ul>
+
+<div class="menu-toggle" id="menuBtn">
+<span></span><span></span><span></span>
+</div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+<div class="mobile-title">NEXACORE COMMAND MENU</div>
+
+<div class="menu-box"><a href="#">🏠 Dashboard</a><small>Main control center</small></div>
+<div class="menu-box"><a href="product.html">🛒 Products</a><small>Marketplace products</small></div>
+<div class="menu-box"><a href="#">📦 Orders</a><small>Manage customer orders</small></div>
+<div class="menu-box"><a href="#">🚚 Tracking</a><small>Shipment monitoring</small></div>
+<div class="menu-box"><a href="#">🤖 AI Automation</a><small>Workflow engine</small></div>
+<div class="menu-box"><a href="#">☁ Cloud Dashboard</a><small>SaaS control hub</small></div>
+<div class="menu-box"><a href="#">💳 Billing</a><small>Payments and plans</small></div>
+<div class="menu-box"><a href="#">📊 Analytics</a><small>Growth metrics</small></div>
+<div class="menu-box"><a href="#">🔐 Client Portal</a><small>Secure access</small></div>
+</div>
+
+<section class="hero">
+<div class="hero-grid">
+<div>
+<h1>Build The Future With <span class="gradient">AI SaaS Automation</span></h1>
+<p>Enterprise cloud systems, intelligent automation, cybersecurity, solar technology, premium gadgets and digital commerce solutions.</p>
+<div class="hero-buttons">
+<button class="btn primary">Launch Platform</button>
+<button class="btn secondary">View Products</button>
+</div>
+</div>
+
+<div class="hero-card">
+<h2>Live Platform Intelligence</h2>
+<div class="metric">
+<div><h3>25K+</h3><p>Users</p></div>
+<div><h3>99.99%</h3><p>Uptime</p></div>
+<div><h3>1.4M</h3><p>AI Tasks</p></div>
+<div><h3>$4.8M</h3><p>Sales</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="partners">
+<h2>Trusted Technology Partners</h2>
+<div class="logo-row">
+<div class="partner"><img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg"></div>
+<div class="partner"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg"></div>
+<div class="partner"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg"></div>
+<div class="partner"><img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg"></div>
+<div class="partner">AI Cloud Labs</div>
+<div class="partner">Automation OS</div>
+</div>
+</section>
+
+<div class="address-banner">
+📍 Bannex Plaza Shop F4 | Premium Gadgets, SaaS & Solar Solutions Hub
+</div>
+
+<section id="services">
+<h2>Enterprise Services</h2>
+<div class="grid">
+<div class="card"><h3>AI Automation</h3><p>Workflow intelligence systems.</p></div>
+<div class="card"><h3>Cloud Hosting</h3><p>Scalable enterprise infrastructure.</p></div>
+<div class="card"><h3>Cyber Security</h3><p>Advanced digital protection.</p></div>
+<div class="card"><h3>ERP Systems</h3><p>Integrated operations management.</p></div>
+<div class="card"><h3>CRM Solutions</h3><p>Lead and sales growth tools.</p></div>
+<div class="card"><h3>AI Marketing</h3><p>Conversion automation engine.</p></div>
+</div>
+</section>
+
+<section id="products">
+<h2>Premium Products Marketplace</h2>
+<div class="grid">
+<div class="product-card"><img src="https://images.unsplash.com/photo-1498049794561-7780e7231661"><h3>Business Laptop</h3><div class="price">$1,250</div><button class="btn primary">Add To Cart</button></div>
+<div class="product-card"><img src="https://images.unsplash.com/photo-1509391366360-2e959784a276"><h3>Solar Kit</h3><div class="price">$2,500</div><button class="btn primary">Add To Cart</button></div>
+<div class="product-card"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475"><h3>AI Core Suite</h3><div class="price">$499</div><button class="btn primary">Add To Cart</button></div>
+<div class="product-card"><img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d"><h3>Automation OS</h3><div class="price">$999</div><button class="btn primary">Add To Cart</button></div>
+</div>
+</section>
+
+<section>
+<h2>Silver Certifications</h2>
+<div class="badges">
+<div class="badge silver">Silver Certified Vendor</div>
+<div class="badge silver">ISO Security Verified</div>
+<div class="badge silver">Silver Cloud Certified</div>
+<div class="badge gold">Gold Partner Authorized</div>
+<div class="badge gold">AI Verified Enterprise</div>
+</div>
+</section>
+
+<section id="dashboard">
+<h2>Business Intelligence Dashboard</h2>
+<div class="grid">
+<div class="dashboard-card">
+<h3>Order Fulfillment</h3>
+<div class="progress"><span style="width:92%"></span></div>
+</div>
+<div class="dashboard-card">
+<h3>Lead Conversion</h3>
+<div class="progress"><span style="width:76%"></span></div>
+</div>
+<div class="dashboard-card">
+<h3>Automation Efficiency</h3>
+<div class="progress"><span style="width:88%"></span></div>
+</div>
+</div>
+</section>
+
+<section>
+<h2>AI Automation Command Center</h2>
+<div class="stats">
+<div class="stat"><h3>85%</h3><p>Process Automation</p></div>
+<div class="stat"><h3>420K</h3><p>Monthly Leads</p></div>
+<div class="stat"><h3>64%</h3><p>Sales Conversion</p></div>
+<div class="stat"><h3>24/7</h3><p>AI Agents</p></div>
+</div>
+</section>
+
+<section>
+<h2>AI Assistant</h2>
+<div class="ai-assistant-box">
+<p>Run business commands, automate tasks and generate growth reports.</p>
+<input placeholder="Ask AI: generate revenue forecast">
+<button class="btn primary" style="margin-top:18px;">Run AI Command</button>
+</div>
+</section>
+
+<section>
+<h2>Client Testimonials</h2>
+<div class="grid">
+<div class="quote">“NexaCore transformed our operations.”</div>
+<div class="quote">“Outstanding SaaS and solar solutions.”</div>
+<div class="quote">“Serious growth results from automation.”</div>
+</div>
+</section>
+
+<section class="newsletter">
+<h2>Newsletter</h2>
+<div class="newsletter-box">
+<p>Get AI, SaaS and product updates.</p>
+<input placeholder="Email address">
+<button class="btn primary">Subscribe</button>
+</div>
+</section>
+
+<section>
+<h2>Frequently Asked Questions</h2>
+<div class="faq-item"><strong>Do you offer enterprise automation?</strong><br>Yes, custom automation solutions available.</div>
+<div class="faq-item"><strong>Do you sell gadgets and solar?</strong><br>Yes, through Bannex Plaza Shop F4 and online.</div>
+</section>
+
+<footer id="contact">
+<div class="footer-grid">
+<div class="footer-box">
+<h4>NexaCore Global</h4>
+<p>Bannex Plaza Shop F4<br>Premium Gadgets<br>Solar Solutions<br>Enterprise SaaS</p>
+</div>
+<div class="footer-box">
+<h4>Products</h4>
+<a href="#">Laptops</a>
+<a href="#">Solar Panels</a>
+<a href="#">Automation Software</a>
+</div>
+<div class="footer-box">
+<h4>Services</h4>
+<a href="#">AI Automation</a>
+<a href="#">ERP Systems</a>
+<a href="#">Digital Marketing</a>
+</div>
+<div class="footer-box">
+<h4>Contact</h4>
+<a href="#">info@kabini.com</a>
+<a href="#">+234 8107808968</a>
+<a href="#">Instagram</a>
+</div>
+</div>
+<div class="copyright">
+© 2026 Kabini LTD | NexaCore Ultra Enterprise Platform
+</div>
+</footer>
+
+<div class="ai-float">🤖 AI Support</div>
+
+<script>
+const menuBtn=document.getElementById('menuBtn');
+const mobileMenu=document.getElementById('mobileMenu');
+
+menuBtn.addEventListener('click',()=>{
+mobileMenu.classList.toggle('active');
+});
+
+document.querySelectorAll('.mobile-menu a').forEach(link=>{
+link.addEventListener('click',()=>{
+mobileMenu.classList.remove('active');
+});
+});
+</script>
+
+</body>
+</html>
+```
+
+---
+
+## ADD-ON UPGRADE PACK (Append Below Your Existing `</footer>` but Before `</body>` — does not replace or remove anything)
+
+```html
+
+<!-- ================= ULTRA TRENDING ADD-ON MODULES ================= -->
+
+<!-- AI AGENT MARKETPLACE -->
+<section id="ai-agent-marketplace">
+<h2>AI Agents Marketplace</h2>
+<div class="grid">
+
+<div class="card">
+<h3>Sales AI Agent</h3>
+<p>Autonomous lead qualification, smart upselling and pipeline prediction.</p>
+<button class="btn primary">Deploy Agent</button>
+</div>
+
+<div class="card">
+<h3>Customer Support Copilot</h3>
+<p>24/7 conversational AI with ticket routing and knowledge automation.</p>
+<button class="btn primary">Activate</button>
+</div>
+
+<div class="card">
+<h3>Finance AI Analyst</h3>
+<p>Cashflow forecasting, revenue intelligence and automated reporting.</p>
+<button class="btn primary">Run Model</button>
+</div>
+
+<div class="card">
+<h3>Inventory AI Bot</h3>
+<p>Smart stock monitoring, reorder automation and demand prediction.</p>
+<button class="btn primary">Launch</button>
+</div>
+
+</div>
+</section>
+
+
+<!-- TRENDING FEATURE STRIP -->
+<section>
+<h2>Latest 2026 Trending Features</h2>
+<div class="grid">
+<div class="dashboard-card">
+<h3>AI Voice Commerce</h3>
+<p>Search and order products by voice assistant.</p>
+</div>
+
+<div class="dashboard-card">
+<h3>Live Product Video Shopping</h3>
+<p>Interactive live selling with conversion engine.</p>
+</div>
+
+<div class="dashboard-card">
+<h3>Smart Subscription Billing</h3>
+<p>Recurring SaaS revenue automation system.</p>
+</div>
+
+<div class="dashboard-card">
+<h3>Predictive Analytics Engine</h3>
+<p>Trend detection powered by enterprise AI models.</p>
+</div>
+</div>
+</section>
+
+
+<!-- B2B SUPPLIER PORTAL -->
+<section>
+<h2>B2B Vendor / Supplier Portal</h2>
+<div class="grid">
+<div class="card">
+<h3>Wholesale Dashboard</h3>
+<p>Bulk order portal for partners and distributors.</p>
+</div>
+
+<div class="card">
+<h3>Partner Onboarding</h3>
+<p>Become certified NexaCore vendor partner.</p>
+</div>
+
+<div class="card">
+<h3>Vendor Logistics Hub</h3>
+<p>Shipment scheduling and fulfillment control.</p>
+</div>
+</div>
+</section>
+
+
+<!-- SMART ORDER TRACKING -->
+<section id="tracking">
+<h2>Advanced Order Tracking Center</h2>
+<div class="grid">
+<div class="dashboard-card">
+<h3>Order #NC-4821</h3>
+<p>Status: In Transit</p>
+<div class="progress"><span style="width:72%"></span></div>
+</div>
+
+<div class="dashboard-card">
+<h3>Order #NC-5107</h3>
+<p>Status: Processing</p>
+<div class="progress"><span style="width:44%"></span></div>
+</div>
+
+<div class="dashboard-card">
+<h3>Order #NC-6302</h3>
+<p>Status: Delivered</p>
+<div class="progress"><span style="width:100%"></span></div>
+</div>
+</div>
+</section>
+
+
+<!-- SOCIAL COMMERCE -->
+<section>
+<h2>Social Commerce Engine</h2>
+<div class="grid">
+<div class="product-card">
+<h3>Instagram Shop Integration</h3>
+<p>Sell directly from product posts.</p>
+</div>
+
+<div class="product-card">
+<h3>WhatsApp Commerce</h3>
+<p>Chat checkout automation.</p>
+</div>
+
+<div class="product-card">
+<h3>TikTok Product Funnels</h3>
+<p>Short-form video conversion engine.</p>
+</div>
+</div>
+</section>
+
+
+<!-- AI COMMAND OPERATING SYSTEM -->
+<section>
+<h2>NexaCore Neural Command OS</h2>
+<div class="ai-assistant-box">
+<h3>Natural Language Business Control</h3>
+<input placeholder="Command: forecast next month sales">
+<input placeholder="Command: generate product campaign">
+<input placeholder="Command: optimize inventory supply">
+<button class="btn primary">Execute Neural Command</button>
+</div>
+</section>
+
+
+<!-- EXTRA CERTIFICATION RIBBON -->
+<section>
+<h2>Enterprise Trust Stack</h2>
+<div class="badges">
+<div class="badge silver">Silver Commerce Certified</div>
+<div class="badge silver">Verified Automation Vendor</div>
+<div class="badge silver">Enterprise Cloud Compliance</div>
+<div class="badge gold">Premium Global Partner</div>
+<div class="badge gold">AI Innovation Leader</div>
+<div class="badge gold">Trusted Digital Infrastructure</div>
+</div>
+</section>
+
+
+<!-- SMART ANALYTICS TERMINAL -->
+<section>
+<h2>Live Analytics Terminal</h2>
+<div class="stats">
+<div class="stat"><h3>12.8M</h3><p>Data Events</p></div>
+<div class="stat"><h3>94%</h3><p>Retention</p></div>
+<div class="stat"><h3>320%</h3><p>ROI Growth</p></div>
+<div class="stat"><h3>8.4K</h3><p>Active Merchants</p></div>
+</div>
+</section>
+
+
+<!-- APP DOWNLOAD -->
+<section>
+<h2>NexaCore Mobile App Ecosystem</h2>
+<div class="grid">
+<div class="card">
+<h3>iOS Business App</h3>
+<p>Manage products, orders and analytics.</p>
+<button class="btn primary">App Store</button>
+</div>
+
+<div class="card">
+<h3>Android Commerce App</h3>
+<p>Full mobile operations dashboard.</p>
+<button class="btn primary">Google Play</button>
+</div>
+</div>
+</section>
+
+
+<!-- AI CHAT WIDGET -->
+<div style="position:fixed;left:20px;bottom:95px;z-index:9999;background:#111827;padding:18px 22px;border-radius:50px;box-shadow:0 15px 40px rgba(0,0,0,.4);font-weight:800;">
+⚡ Neural Copilot Online
+</div>
+
+
+<!-- OPTIONAL EXTRA CSS ADD BELOW YOUR STYLE BLOCK -->
+<style>
+.ticker-wrap{
+overflow:hidden;
+white-space:nowrap;
+padding:18px;
+background:#071224;
+font-weight:700;
+}
+
+.ticker{
+display:inline-block;
+animation:scrollTicker 22s linear infinite;
+}
+
+@keyframes scrollTicker{
+from{transform:translateX(100%)}
+to{transform:translateX(-100%)}
+}
+
+.card:hover,
+.dashboard-card:hover,
+.product-card:hover{
+box-shadow:0 18px 45px rgba(0,224,255,.18);
+}
+
+@media(max-width:768px){
+.menu-box a{
+font-size:13px;
+}
+
+.mobile-title{
+font-size:18px;
+}
+
+.ai-float{
+font-size:13px;
+padding:14px 18px;
+}
+}
+</style>
+
+
+<!-- LIVE TREND TICKER -->
+<div class="ticker-wrap">
+<div class="ticker">
+AI Agents • Smart Commerce • SaaS Automation • Predictive Analytics • Cloud ERP • Solar Tech • Enterprise Security • Digital Marketplace
+</div>
+</div>
